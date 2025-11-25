@@ -1,0 +1,36 @@
+.container {
+  width: 60%;
+  margin: auto;
+  padding: 20px;
+}
+
+form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+form input {
+  padding: 8px;
+  flex: 1;
+}
+
+button {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+}
+
+table th {
+  background: #f3f3f3;
+}

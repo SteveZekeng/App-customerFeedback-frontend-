@@ -1,0 +1,53 @@
+<div class="container">
+
+  <h2>Gestion des Agences</h2>
+
+  <form [formGroup]="agenceForm" (ngSubmit)="submit()">
+
+    <input type="text" formControlName="agenceCity" placeholder="Ville de l'agence">
+
+    <input type="text" formControlName="agenceLocation" placeholder="Localisation">
+
+    <button type="submit">
+      {{ editMode ? 'Modifier' : 'Ajouter' }}
+    </button>
+    @if (editMode){
+      <button type="button" (click)="resetForm()">Annuler</button>
+    }
+  </form>
+
+  <hr>
+
+
+  <table>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Ville</th>
+      <th>Localisation</th>
+      <th>Score</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+
+    <tbody>
+      @for (ag of agences; track ag.id){
+        <tr>
+          <td>{{ ag.id }}</td>
+          <td>{{ ag.agenceCity }}</td>
+          <td>{{ ag.agenceLocation }}</td>
+          <td>{{ ag.average | number:'1.1-2' }}</td>
+
+          <td>
+            <button (click)="edit(ag)">Modifier</button>
+            <button (click)="delete(ag.id!)">Supprimer</button>
+            <button (click)="getAverage(ag.id!)">Scoring</button>
+            <button (click)="viewDetail(ag.id!)">Détails</button>
+          </td>
+        </tr>
+      }
+
+    </tbody>
+  </table><br>
+
+</div>

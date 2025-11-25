@@ -1,0 +1,60 @@
+<div class="container">
+
+  <h2>Gestion du Personnel (Staff)</h2>
+
+  <form [formGroup]="staffForm" (ngSubmit)="submit()">
+    <input type="text" formControlName="staffName" placeholder="Nom du staff">
+
+    <input type="text" formControlName="staffPhone" placeholder="Téléphone 9 chiffres">
+
+    <input type="email" formControlName="staffEmail" placeholder="Email">
+
+    <input type="text" formControlName="matricule" placeholder="Matricule">
+
+    <input type="number" formControlName="agence_id" placeholder="ID de l'agence">
+
+    <button type="submit">
+      {{ editMode ? 'Modifier' : 'Ajouter' }}
+    </button>
+
+    @if (editMode){
+      <button type="button" (click)="resetForm()">Annuler</button>
+    }
+  </form>
+
+  <hr>
+
+  <table>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nom</th>
+      <th>Téléphone</th>
+      <th>Email</th>
+      <th>Matricule</th>
+      <th>Agence ID</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+
+    <tbody>
+      @for (s of staffList; track s.id){
+        <tr>
+          <td>{{ s.id }}</td>
+          <td>{{ s.staffName }}</td>
+          <td>{{ s.staffPhone }}</td>
+          <td>{{ s.staffEmail }}</td>
+          <td>{{ s.matricule }}</td>
+          <td>{{ s.agenceId }}</td>
+
+          <td>
+            <button (click)="edit(s)">Modifier</button>
+            <button (click)="delete(s.id!)">Supprimer</button>
+            <button (click)="viewDetail(s.id!)">Détails</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+</div>

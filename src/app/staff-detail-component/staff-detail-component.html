@@ -1,0 +1,18 @@
+@if (staff){
+  <div class="detail-container">
+
+    <h2>Détails du Staff</h2>
+
+    <div class="card">
+      <p><strong>ID :</strong> {{ staff.id }}</p>
+      <p><strong>Nom :</strong> {{ staff.staffName }}</p>
+      <p><strong>Téléphone :</strong> {{ staff.staffPhone }}</p>
+      <p><strong>Email :</strong> {{ staff.staffEmail }}</p>
+      <p><strong>Matricule :</strong> {{ staff.matricule }}</p>
+      <p><strong>ID Agence :</strong> {{ staff.agenceId }}</p>
+    </div>
+
+    <button (click)="back()">Retour</button>
+
+  </div>
+}

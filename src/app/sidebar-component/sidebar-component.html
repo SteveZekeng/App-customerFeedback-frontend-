@@ -1,0 +1,27 @@
+<div class="sidebar" [class.collapsed]="collapsed">
+
+
+  <div class="toggle-btn" (click)="toggle()">
+    <span class="material-icons">chevron_left</span>
+  </div>
+
+
+  <ul>
+    <li>
+      <span class="material-icons">feedback</span>
+      <span class="text">Feedback</span>
+    </li>
+    <li routerLink="/staff" routerLinkActive="active">
+      <span class="material-icons">group</span>
+      <span class="text">Staff</span>
+    </li>
+    <li routerLink="/agence" routerLinkActive="active">
+      <span class="material-icons">business</span>
+      <span class="text">Agence</span>
+    </li>
+    <li>
+      <span class="material-icons">help</span>
+      <span class="text">Question</span>
+    </li>
+  </ul>
+</div>

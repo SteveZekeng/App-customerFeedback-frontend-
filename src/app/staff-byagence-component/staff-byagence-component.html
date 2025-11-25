@@ -1,0 +1,59 @@
+<div class="container">
+
+  <h2>Liste des Staffs par Agence</h2>
+
+  <div class="filters">
+    <label>Choisir une agence :</label>
+    <select [(ngModel)]="selectedAgenceId" (change)="loadStaffByAgence()">
+      <option value="">-- Sélectionner --</option>
+      @for (ag of agences; track ag.id){
+        <option>
+          {{ ag.agenceCity }} - {{ ag.agenceLocation }}
+        </option>
+      }
+    </select>
+  </div>
+
+  <hr>
+
+  @if (loading){
+    <div>Chargement...</div>
+  }
+
+  @if (!loading && staffList.length > 0){
+    <table>
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nom</th>
+        <th>Téléphone</th>
+        <th>Email</th>
+        <th>Matricule</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+
+      <tbody>
+        @for (s of staffList; track s.id){
+          <tr>
+            <td>{{ s.id }}</td>
+            <td>{{ s.staffName }}</td>
+            <td>{{ s.staffPhone }}</td>
+            <td>{{ s.staffEmail }}</td>
+            <td>{{ s.matricule }}</td>
+            <td>
+              <button (click)="viewDetail(s.id!)">Détails</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+
+  @if (!loading && staffList.length === 0 && selectedAgenceId){
+    <p>
+      Aucun staff trouvé pour cette agence.
+    </p>
+  }
+
+</div>
