@@ -1,94 +1,67 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Agence} from '../modele/agence.model';
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {AgenceService} from '../service/agence.service';
-import {DecimalPipe} from '@angular/common';
-import {Router, RouterLink, RouterLinkActive} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Agence } from '../modele/agence.model';
+import { AgenceService } from '../service/agence.service';
+import { Router } from '@angular/router';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-agence-component',
+  standalone: true,
   imports: [
-    ReactiveFormsModule,
-    DecimalPipe
+    FormsModule
   ],
   templateUrl: './agence-component.html',
-  styleUrl: './agence-component.scss',
+  styleUrls: ['./agence-component.scss'],
 })
 export class AgenceComponent implements OnInit {
 
   agences: Agence[] = [];
-  agenceForm!: FormGroup;
+  newAgence: Agence = { agenceCity: '', agenceLocation: '' };
   editMode = false;
   selectedId: number | null = null;
-  @Input() agc!: Agence;
 
-  constructor(
-    private fb: FormBuilder,
-    private agenceService: AgenceService,
-    private router: Router,
-  ) {}
+  constructor(private agenceService: AgenceService, private router: Router) {}
 
   ngOnInit(): void {
-    this.agenceForm = this.fb.group({
-      agenceCity: ['', Validators.required],
-      agenceLocation: ['', Validators.required]
-    });
-
     this.loadAgences();
   }
 
   loadAgences() {
-    this.agenceService.getAllAgences().subscribe(data => {
-      this.agences = data;
-    });
+    this.agenceService.getAllAgences().subscribe(data => this.agences = data);
   }
 
   submit() {
-    if (this.agenceForm.invalid) return;
-
-    const agence: Agence = this.agenceForm.value;
+    if (!this.newAgence.agenceCity || !this.newAgence.agenceLocation) return;
 
     if (this.editMode && this.selectedId !== null) {
-      this.agenceService.updateAgence(this.selectedId, agence).subscribe(() => {
+      this.agenceService.updateAgence(this.selectedId, this.newAgence).subscribe(() => {
         this.resetForm();
         this.loadAgences();
       });
     } else {
-      this.agenceService.createAgence(agence).subscribe(() => {
+      this.agenceService.createAgence(this.newAgence).subscribe(() => {
         this.resetForm();
         this.loadAgences();
       });
     }
   }
 
-  edit(agence: Agence) {
+  edit(ag: Agence) {
     this.editMode = true;
-    this.selectedId = agence.id || null;
-
-    this.agenceForm.patchValue({
-      agenceCity: agence.agenceCity,
-      agenceLocation: agence.agenceLocation
-    });
+    this.selectedId = ag.id || null;
+    this.newAgence = { ...ag };
   }
 
   delete(id: number) {
-    if (confirm('Voulez-vous vraiment supprimer ?')) {
-      this.agenceService.deleteAgence(id).subscribe(() => {
-        this.loadAgences();
-      });
+    if (confirm('Êtes-vous sûr ?')) {
+      this.agenceService.deleteAgence(id).subscribe(() => this.loadAgences());
     }
   }
 
   resetForm() {
     this.editMode = false;
     this.selectedId = null;
-    this.agenceForm.reset();
-  }
-
-  getAverage(id: number): void {
-    this.agenceService.getAverageScore(id).subscribe(avg => {
-      alert('Average score: ' + avg);
-    });
+    this.newAgence = { agenceCity: '', agenceLocation: '' };
   }
 
   viewDetail(id: number) {

@@ -1,0 +1,47 @@
+<div class="container">
+
+  <h2>Créer une question</h2>
+
+  <form (ngSubmit)="submit()" class="form">
+
+    <label>Intitulé de la question</label>
+    <input type="text" [(ngModel)]="question.labelQuestion" name="labelQuestion" required/>
+
+    <label>Type d'entrée</label>
+    <select [(ngModel)]="question.inputType" name="inputType" (change)="onInputTypeChange()">
+      <option [ngValue]="this.InputType.NUMBER">Nombre</option>
+      <option [ngValue]="this.InputType.SELECT_OPT">Select Option</option>
+      <option [ngValue]="this.InputType.RADIO_BUTTON">Radio Button</option>
+      <option [ngValue]="this.InputType.TEXT">Texte</option>
+      <option [ngValue]="this.InputType.CHECKBOX">Checkbox</option>
+    </select>
+
+    @if (question.inputType === this.InputType.SELECT_OPT || question.inputType === this.InputType.RADIO_BUTTON) {
+
+      <div class="propositions">
+
+        <h3>Propositions</h3>
+
+        @for (p of question.propositions; track $index) {
+          <div class="prop-item">
+            <input type="text" [(ngModel)]="p.label" name="label{{$index}}" placeholder="Libellé">
+            <input type="number" [(ngModel)]="p.score" name="score{{$index}}" placeholder="Score">
+
+            @if (question.inputType === this.InputType.SELECT_OPT && question.propositions!.length > 2) {
+              <button type="button" class="remove" (click)="removeProposition($index)">X</button>
+            }
+          </div>
+        }
+
+        @if (question.inputType === this.InputType.SELECT_OPT && question.propositions!.length < 4) {
+          <button type="button" class="add" (click)="addProposition()">+ Ajouter</button>
+        }
+
+      </div>
+    }
+
+    <button class="submit" type="submit">Créer</button>
+
+  </form>
+
+</div>

@@ -1,21 +1,22 @@
-import {Component, OnInit} from '@angular/core';
-import {Agence} from '../modele/agence.model';
-import {ActivatedRoute, Router} from '@angular/router';
-import {AgenceService} from '../service/agence.service';
-import {DecimalPipe, NgIf} from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AgenceService } from '../service/agence.service';
+import { Agence } from '../modele/agence.model';
+import {Observable} from 'rxjs';
 
 @Component({
-  selector: 'app-agence-detail-component',
-  imports: [
-    DecimalPipe
-  ],
+  selector: 'app-agence-detail',
+  standalone: true,
   templateUrl: './agence-detail-component.html',
-  styleUrl: './agence-detail-component.scss',
+  styleUrls: ['./agence-detail-component.scss'],
 })
 export class AgenceDetailComponent implements OnInit {
 
   agence!: Agence;
-  average?: number;
+  loading = true;
+  errorMsg = '';
+  id!: number;
+  average!: Observable<number>;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,22 +27,27 @@ export class AgenceDetailComponent implements OnInit {
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.loadAgence(id);
-    this.loadAverage(id);
   }
 
   loadAgence(id: number) {
-    this.agenceService.getAgenceById(id).subscribe(data => {
-      this.agence = data;
+    this.loading = true;
+
+    this.agenceService.getAgenceById(id).subscribe({
+      next: data => {
+        this.agence = data;
+        this.loading = false;
+      },
+      error: () => {
+        this.errorMsg = "Agence introuvable.";
+        this.loading = false;
+      }
     });
   }
-
-  loadAverage(id: number) {
-    this.agenceService.getAverageScore(id).subscribe(avg => {
-      this.average = avg;
-    });
+  avgScore(agenceId: number){
+    this.average = this.agenceService.getAverageScore(this.id);
   }
 
   back() {
-    this.router.navigate(['/agences']);
+    this.router.navigate(['/agence']);
   }
 }

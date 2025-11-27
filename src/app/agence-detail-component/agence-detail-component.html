@@ -1,17 +1,23 @@
-@if (agence){
-  <div class="detail-container">
+<div class="detail-container">
 
 
-  <h2>Détails de l'agence</h2>
 
-  <div class="card">
-    <p><strong>ID :</strong> {{ agence.id }}</p>
-    <p><strong>Ville :</strong> {{ agence.agenceCity }}</p>
-    <p><strong>Localisation :</strong> {{ agence.agenceLocation }}</p>
-    <p><strong>Score :</strong> {{ average | number:'1.1-2' }}</p>
-  </div>
+  @if (!loading && errorMsg) {
+    <p class="error">{{ errorMsg }}</p>
+    <button (click)="back()">Retour</button>
+  }
 
-  <button (click)="back()">Retour</button>
+  @if (!loading && !errorMsg) {
+    <h2>Détails de l'agence</h2>
+
+    <div class="card">
+      <p><strong>ID :</strong> {{ agence.id }}</p>
+      <p><strong>Ville :</strong> {{ agence.agenceCity }}</p>
+      <p><strong>Localisation :</strong> {{ agence.agenceLocation }}</p>
+      <p><strong>Scoring :</strong> {{ agence.average }}</p>
+    </div>
+
+    <button (click)="back()">Retour</button>
+  }
 
 </div>
-}

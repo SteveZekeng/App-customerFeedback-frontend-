@@ -1,0 +1,29 @@
+<div class="auth-container">
+  <div class="auth-card">
+
+    <div class="logo-container">
+      <img src="assets/logo_CCA.png" alt="Logo CCA Bank" />
+    </div>
+
+    <h2>Connexion</h2>
+
+    <form (ngSubmit)="login()" #loginForm="ngForm" class="form">
+
+      <div class="form-group">
+        <input type="text" [(ngModel)]="creds.username" name="username" placeholder="Username" required />
+      </div>
+
+      <div class="form-group">
+        <input type="password" [(ngModel)]="creds.password" name="password" placeholder="Password" required />
+      </div>
+
+      @if (errorMsg) {
+        <p class="error">{{ errorMsg }}</p>
+      }
+
+      <button type="submit" [disabled]="!loginForm.form.valid">Se connecter</button>
+
+    </form>
+  </div>
+</div>
+

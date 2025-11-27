@@ -1,0 +1,124 @@
+.auth-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f2f3f7;
+  padding: 20px;
+}
+
+.auth-card {
+  width: 360px;
+  padding: 40px 32px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fadeIn 0.4s ease both;
+}
+
+/* Logo */
+.logo-container {
+  width: 110px;
+  height: 110px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    width: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 3px 6px rgba(0,0,0,0.1));
+  }
+}
+
+.auth-title {
+  font-size: 1.55rem;
+  margin: 10px 0 25px;
+  color: #333;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* FORM centrage */
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;     /* <-- CENTRAGE HORIZONTAL */
+  justify-content: center; /* <-- CENTRAGE VERTICAL DU CONTENU */
+  gap: 18px;
+}
+
+
+form input {
+
+  width: 230px;
+  padding: 13px 14px;
+  border-radius: 12px;
+  font-size: 15px;
+  border: 1.5px solid #ddd;
+  background: #fafafa;
+  outline: none;
+  transition: 0.25s ease;
+
+  &:focus {
+    border-color: #692c8a;
+    background: #fff;
+    box-shadow: 0 0 0 4px rgba(138, 64, 176, 0.12);
+  }
+
+  &::placeholder {
+    color: #999;
+  }
+}
+
+
+form button {
+
+  width: 230px;
+  padding: 13px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #692c8a, #692c8a);
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.25s ease;
+  letter-spacing: 0.3px;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+.error {
+  color: #d32f2f;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 420px) {
+  .auth-card {
+    width: 90%;
+    padding: 32px 20px;
+  }
+}
+
+/* ANIMATION */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

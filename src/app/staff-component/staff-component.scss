@@ -1,24 +1,45 @@
 .container {
-  width: 70%;
+  width: 50%;
   margin: auto;
-  padding: 20px;
+  padding: 50px;
 }
 
 form {
   display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 16px;
+
+  input{
+    padding: 12px;
+    border-radius: 10px;
+    border: 1.5px solid #ddd;
+    font-size: 15px;
+    transition: 0.2s;
+
+    &:focus {
+      border-color: #710f90;
+      box-shadow: 0 0 7px rgba(25, 118, 210, .3);
+    }
+
+
+  }
 }
 
-form input {
-  padding: 7px;
-  flex: 1 1 calc(33% - 20px);
-}
 
 button {
-  padding: 8px 12px;
+  padding: 12px;
+  background: #710f90;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 16px;
   cursor: pointer;
+
+  &:hover {
+    background: #710f90;
+  }
 }
+
 
 table {
   width: 100%;
@@ -34,3 +55,5 @@ table th, table td {
 table th {
   background: #f2f2f2;
 }
+
+

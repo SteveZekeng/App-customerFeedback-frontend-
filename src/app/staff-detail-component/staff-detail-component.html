@@ -1,6 +1,17 @@
-@if (staff){
-  <div class="detail-container">
+<div class="detail-container">
 
+  @if (loading) {
+    <p>Chargement...</p>
+  }
+
+  @else if (errorMessage) {
+    <div class="error-box">
+      <p>{{ errorMessage }}</p>
+      <button (click)="back()">Retour</button>
+    </div>
+  }
+
+  @else if (staff) {
     <h2>Détails du Staff</h2>
 
     <div class="card">
@@ -13,6 +24,6 @@
     </div>
 
     <button (click)="back()">Retour</button>
+  }
 
-  </div>
-}
+</div>

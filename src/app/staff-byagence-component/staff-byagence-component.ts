@@ -1,19 +1,17 @@
 import {Component, OnInit} from '@angular/core';
+import {FormsModule} from '@angular/forms';
 import {Agence} from '../modele/agence.model';
 import {Staff} from '../modele/staff.model';
 import {StaffService} from '../service/staff.service';
 import {AgenceService} from '../service/agence.service';
 import {Router} from '@angular/router';
-import {FormsModule} from '@angular/forms';
-
 
 @Component({
   selector: 'app-staff-byagence-component',
-  imports: [
-    FormsModule,
-  ],
+  standalone: true,
+  imports: [FormsModule],
   templateUrl: './staff-byagence-component.html',
-  styleUrl: './staff-byagence-component.scss',
+  styleUrls: ['./staff-byagence-component.scss'],
 })
 export class StaffByagenceComponent implements OnInit {
 
@@ -43,15 +41,21 @@ export class StaffByagenceComponent implements OnInit {
     if (!this.selectedAgenceId) return;
 
     this.loading = true;
+    this.staffList = [];
 
-    this.staffService.getStaffByAgence(this.selectedAgenceId).subscribe(data => {
-      this.staffList = data;
-      this.loading = false;
+    this.staffService.getStaffByAgence(this.selectedAgenceId).subscribe({
+      next: (data) => {
+        this.staffList = data;
+        this.loading = false;
+      },
+      error: () => {
+        this.staffList = [];
+        this.loading = false;
+      }
     });
   }
 
   viewDetail(id: number) {
     this.router.navigate(['/staff', id]);
   }
-
 }

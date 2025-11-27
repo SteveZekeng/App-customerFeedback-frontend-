@@ -1,23 +1,26 @@
 import {Component, OnInit} from '@angular/core';
 import {Staff} from '../modele/staff.model';
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {StaffService} from '../service/staff.service';
 import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-staff-component',
-  imports: [
-    ReactiveFormsModule,
-  ],
+  standalone: true,
+  imports: [ReactiveFormsModule, FormsModule],
   templateUrl: './staff-component.html',
-  styleUrl: './staff-component.scss',
+  styleUrls: ['./staff-component.scss'],
 })
+
 export class StaffComponent implements OnInit {
 
   staffList: Staff[] = [];
   staffForm!: FormGroup;
   editMode = false;
   selectedId: number | null = null;
+  loading = false;
+  errorMsg = '';
+  selectedAgenceId: number | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -31,15 +34,47 @@ export class StaffComponent implements OnInit {
       staffPhone: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(9)]],
       staffEmail: ['', [Validators.required, Validators.email]],
       matricule: ['', Validators.required],
-      agence_id: ['', Validators.required]
+      agenceId: ['', Validators.required]
     });
 
     this.loadStaffs();
   }
 
   loadStaffs() {
-    this.staffService.getAllStaffs().subscribe(data => {
-      this.staffList = data;
+    this.loading = true;
+    this.errorMsg = '';
+
+    this.staffService.getAllStaffs().subscribe({
+      next: data => {
+        this.staffList = data;
+        this.loading = false;
+      },
+      error: () => {
+        this.errorMsg = 'Erreur lors du chargement des staffs.';
+        this.loading = false;
+      }
+    });
+  }
+
+  loadStaffByAgence() {
+    if (!this.selectedAgenceId) return;
+
+    this.loading = true;
+    this.errorMsg = '';
+
+    this.staffService.getStaffByAgence(this.selectedAgenceId).subscribe({
+      next: data => {
+        this.staffList = data;
+        this.loading = false;
+
+        if (data.length === 0) {
+          this.errorMsg = 'Aucun staff trouvé pour cette agence.';
+        }
+      },
+      error: () => {
+        this.errorMsg = 'Agence introuvable.';
+        this.loading = false;
+      }
     });
   }
 

@@ -5,14 +5,16 @@ import {StaffService} from '../service/staff.service';
 
 @Component({
   selector: 'app-staff-detail-component',
-  imports: [
-  ],
+  standalone: true,
+  imports: [],
   templateUrl: './staff-detail-component.html',
-  styleUrl: './staff-detail-component.scss',
+  styleUrls: ['./staff-detail-component.scss'],
 })
 export class StaffDetailComponent implements OnInit {
 
-  staff!: Staff;
+  staff!: Staff | null;
+  loading = true;
+  errorMessage: string | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -22,12 +24,29 @@ export class StaffDetailComponent implements OnInit {
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
+
+    if (!id) {
+      this.errorMessage = "ID invalide.";
+      this.loading = false;
+      return;
+    }
+
     this.loadStaff(id);
   }
 
   loadStaff(id: number) {
-    this.staffService.getStaffById(id).subscribe(data => {
-      this.staff = data;
+    this.loading = true;
+
+    this.staffService.getStaffById(id).subscribe({
+      next: (data) => {
+        this.staff = data;
+        this.loading = false;
+      },
+      error: () => {
+        this.errorMessage = "Aucun staff trouvé pour cet ID.";
+        this.staff = null;
+        this.loading = false;
+      }
     });
   }
 
