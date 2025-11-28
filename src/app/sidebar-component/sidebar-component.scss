@@ -1,13 +1,18 @@
 .sidebar {
   width: 200px;
   height: 100vh;
-  background: #710f90;
-  color: white;
+  background: white;
+  color: #710f90;
   padding-top: 20px;
   box-shadow: 2px 0 5px rgba(0,0,0,0.1);
   position: fixed;
   top: 60px;
   transition: 0.3s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+  }
 }
 .sidebar.collapsed {
   width: 50px;

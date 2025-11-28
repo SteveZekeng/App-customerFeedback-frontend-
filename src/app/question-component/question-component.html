@@ -1,6 +1,6 @@
 <div class="container">
 
-  <h2>Créer une question</h2>
+  <h2>Gestion des questions</h2>
 
   <form (ngSubmit)="submit()" class="form">
 
@@ -43,5 +43,57 @@
     <button class="submit" type="submit">Créer</button>
 
   </form>
+
+  <hr>
+
+  @if (!loading && errorMsg) {
+    <p class="error">{{ errorMsg }}</p>
+  }
+
+  @if (!loading && questions.length > 0) {
+  <table class="table">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Question</th>
+      <th>Type</th>
+      <th>Propositions</th>
+    </tr>
+    </thead>
+
+    <tbody>
+      @for (q of questions; track q.id) {
+        <tr>
+          <td>{{ q.id }}</td>
+          <td>{{ q.labelQuestion }}</td>
+          <td>{{ q.inputType }}</td>
+
+          <td>
+            @if (q.propositions?.length) {
+              <ul>
+                @for (p of q.propositions; track $index) {
+                  <li>{{ p.label }} (score : {{ p.score }})</li>
+                }
+              </ul>
+            }
+            @else {
+              <i>Aucune proposition</i>
+            }
+          </td>
+          <td>
+            <button (click)="editQuestion(q)">Modifier</button>
+            <button (click)="deleteQuestion(q.id!)">Supprimer</button>
+          </td>
+
+
+        </tr>
+      }
+    </tbody>
+  </table>
+  }
+
+  @if (!loading && questions.length === 0) {
+    <p>Aucun staff trouvé pour cette agence.</p>
+  }
 
 </div>

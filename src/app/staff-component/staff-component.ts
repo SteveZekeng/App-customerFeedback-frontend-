@@ -16,11 +16,13 @@ export class StaffComponent implements OnInit {
 
   staffList: Staff[] = [];
   staffForm!: FormGroup;
+
   editMode = false;
   selectedId: number | null = null;
+
+  selectedAgenceId: number | null = null;
   loading = false;
   errorMsg = '';
-  selectedAgenceId: number | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -42,17 +44,10 @@ export class StaffComponent implements OnInit {
 
   loadStaffs() {
     this.loading = true;
-    this.errorMsg = '';
 
     this.staffService.getAllStaffs().subscribe({
-      next: data => {
-        this.staffList = data;
-        this.loading = false;
-      },
-      error: () => {
-        this.errorMsg = 'Erreur lors du chargement des staffs.';
-        this.loading = false;
-      }
+      next: data => { this.staffList = data; this.loading = false; },
+      error: () => { this.errorMsg = 'Erreur lors du chargement.'; this.loading = false; }
     });
   }
 
@@ -60,16 +55,11 @@ export class StaffComponent implements OnInit {
     if (!this.selectedAgenceId) return;
 
     this.loading = true;
-    this.errorMsg = '';
-
     this.staffService.getStaffByAgence(this.selectedAgenceId).subscribe({
       next: data => {
         this.staffList = data;
         this.loading = false;
-
-        if (data.length === 0) {
-          this.errorMsg = 'Aucun staff trouvé pour cette agence.';
-        }
+        if (data.length === 0) this.errorMsg = 'Aucun staff trouvé.';
       },
       error: () => {
         this.errorMsg = 'Agence introuvable.';
@@ -83,32 +73,43 @@ export class StaffComponent implements OnInit {
 
     const staff: Staff = this.staffForm.value;
 
-    if (this.editMode && this.selectedId !== null) {
-      this.staffService.updateStaff(this.selectedId, staff).subscribe(() => {
+    if (this.editMode && this.selectedId) {
+      this.staffService.updateStaff(this.selectedId, staff).subscribe({
+        next: () => {
+          alert('Staff mise à jour');
         this.resetForm();
         this.loadStaffs();
+        },
+        error: () => alert('Erreur lors de la mise à jour')
       });
     } else {
-      this.staffService.createStaff(staff).subscribe(() => {
-        this.resetForm();
-        this.loadStaffs();
+      this.staffService.createStaff(staff).subscribe({
+        next: () => {
+          alert('Staff crée avec succès !');
+          this.resetForm();
+          this.loadStaffs();
+        },
+        error: () => alert('Erreur lors de la création.')
       });
     }
   }
 
   edit(staff: Staff) {
     this.editMode = true;
-    this.selectedId = staff.id || null;
-
+    this.selectedId = staff.id!;
     this.staffForm.patchValue(staff);
   }
 
   delete(id: number) {
-    if (confirm("Êtes-vous sûr ?")) {
-      this.staffService.deleteStaff(id).subscribe(() => {
+    if (confirm("Voulez-vous vraiment supprimer ce staff ?")) return;
+    this.staffService.deleteStaff(id).subscribe({
+      next: () => {
+        alert('Staff supprimée');
         this.loadStaffs();
-      });
-    }
+      },
+      error: () => alert('Erreur lors de la suppression')
+    });
+
   }
 
   resetForm() {
@@ -121,4 +122,3 @@ export class StaffComponent implements OnInit {
     this.router.navigate(['/staff', id]);
   }
 }
-

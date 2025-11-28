@@ -21,7 +21,7 @@
   animation: fadeIn 0.4s ease both;
 }
 
-/* Logo */
+
 .logo-container {
   width: 110px;
   height: 110px;
@@ -45,22 +45,22 @@
   text-align: center;
 }
 
-/* FORM centrage */
+
 form {
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;     /* <-- CENTRAGE HORIZONTAL */
-  justify-content: center; /* <-- CENTRAGE VERTICAL DU CONTENU */
+  align-items: center;
+  justify-content: center;
   gap: 18px;
 }
 
 
 form input {
 
-  width: 230px;
+  width: 250px;
   padding: 13px 14px;
-  border-radius: 12px;
+  border-radius: 20px;
   font-size: 15px;
   border: 1.5px solid #ddd;
   background: #fafafa;
@@ -81,10 +81,10 @@ form input {
 
 form button {
 
-  width: 230px;
+  width: 250px;
   padding: 13px;
   border: none;
-  border-radius: 12px;
+  border-radius: 20px;
   background: linear-gradient(135deg, #692c8a, #692c8a);
   color: white;
   font-size: 16px;

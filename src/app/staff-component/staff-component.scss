@@ -1,32 +1,33 @@
 .container {
   width: 50%;
-  margin: auto;
-  padding: 50px;
+  margin: 25px auto;
+  padding: 20px;
+
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
 }
 
-form {
+.form {
   display: flex;
   flex-direction: column;
   gap: 16px;
 
-  input{
+  input {
     padding: 12px;
     border-radius: 10px;
     border: 1.5px solid #ddd;
     font-size: 15px;
-    transition: 0.2s;
 
     &:focus {
       border-color: #710f90;
-      box-shadow: 0 0 7px rgba(25, 118, 210, .3);
+      box-shadow: 0 0 7px rgba(25,118,210,.3);
     }
-
-
   }
 }
 
-
-button {
+.submit {
   padding: 12px;
   background: #710f90;
   border: none;
@@ -34,26 +35,26 @@ button {
   color: white;
   font-size: 16px;
   cursor: pointer;
+}
 
-  &:hover {
+.cancel { background: #555; color: white; padding: 10px; border-radius: 10px; }
+
+.table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+
+  th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+  }
+
+  th {
     background: #710f90;
+    color: white;
   }
 }
 
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 15px;
-}
-
-table th, table td {
-  border: 1px solid #ccc;
-  padding: 8px;
-}
-
-table th {
-  background: #f2f2f2;
-}
-
-
+.edit { background: #2e7d32; color: white; padding: 6px 10px; border-radius: 8px; }
+.delete { background: #d32f2f; color: white; padding: 6px 10px; border-radius: 8px; }
+.detail { background: #1976d2; color: white; padding: 6px 10px; border-radius: 8px; }

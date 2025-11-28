@@ -73,8 +73,11 @@
     </table>
   }
 
-  @if (!loading && staffList.length === 0 && selectedAgenceId) {
+  @if (!loading && selectedAgenceId) {
     <p>Aucun staff trouvé pour cette agence.</p>
+  }
+  @if (!loading && staffList.length === 0) {
+    <p>Aucun staff enregistré.</p>
   }
 
 

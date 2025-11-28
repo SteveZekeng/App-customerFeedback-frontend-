@@ -78,3 +78,20 @@
     cursor: pointer;
   }
 }
+
+.table {
+  width: 100%;
+  margin-top: 30px;
+  border-collapse: collapse;
+
+  th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+  }
+
+  th {
+    background: #710f90;
+    color: white;
+  }
+}
+

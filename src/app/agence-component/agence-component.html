@@ -15,7 +15,11 @@
 
   <hr>
 
-  @if (agences.length > 0) {
+  @if (!loading && errorMsg) {
+    <p class="error">{{ errorMsg }}</p>
+  }
+
+  @if (!loading && agences.length > 0) {
     <table>
       <thead>
       <tr>
@@ -42,7 +46,7 @@
     </table>
   }
 
-  @if (agences.length === 0) {
+  @if (!loading && agences.length === 0) {
     <p>Aucune agence enregistrée.</p>
   }
 

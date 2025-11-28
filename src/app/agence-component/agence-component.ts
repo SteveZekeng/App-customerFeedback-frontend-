@@ -19,6 +19,8 @@ export class AgenceComponent implements OnInit {
   newAgence: Agence = { agenceCity: '', agenceLocation: '' };
   editMode = false;
   selectedId: number | null = null;
+  loading = false;
+  errorMsg = '';
 
   constructor(private agenceService: AgenceService, private router: Router) {}
 
@@ -27,21 +29,32 @@ export class AgenceComponent implements OnInit {
   }
 
   loadAgences() {
-    this.agenceService.getAllAgences().subscribe(data => this.agences = data);
+    this.agenceService.getAllAgences().subscribe({
+      next: data => { this.agences = data; this.loading = false; },
+      error: () => { this.errorMsg = 'Erreur lors du chargement.'; this.loading = false; }
+    });
   }
 
   submit() {
     if (!this.newAgence.agenceCity || !this.newAgence.agenceLocation) return;
 
     if (this.editMode && this.selectedId !== null) {
-      this.agenceService.updateAgence(this.selectedId, this.newAgence).subscribe(() => {
+      this.agenceService.updateAgence(this.selectedId, this.newAgence).subscribe({
+        next: () => {
+          alert('Agence mise à jour');
         this.resetForm();
         this.loadAgences();
+        },
+        error: () => alert('Erreur lors de la mise à jour')
       });
     } else {
-      this.agenceService.createAgence(this.newAgence).subscribe(() => {
+      this.agenceService.createAgence(this.newAgence).subscribe({
+        next: () => {
+          alert('Agence créée avec succès !');
         this.resetForm();
         this.loadAgences();
+        },
+        error: () => alert('Erreur lors de la création.')
       });
     }
   }
