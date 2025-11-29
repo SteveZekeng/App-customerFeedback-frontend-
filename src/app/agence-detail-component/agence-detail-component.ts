@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AgenceService } from '../service/agence.service';
 import { Agence } from '../modele/agence.model';
+import {DecimalPipe} from '@angular/common';
 import {Observable} from 'rxjs';
 
 @Component({
@@ -9,6 +10,9 @@ import {Observable} from 'rxjs';
   standalone: true,
   templateUrl: './agence-detail-component.html',
   styleUrls: ['./agence-detail-component.scss'],
+  imports: [
+    DecimalPipe
+  ]
 })
 export class AgenceDetailComponent implements OnInit {
 
@@ -27,6 +31,7 @@ export class AgenceDetailComponent implements OnInit {
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.loadAgence(id);
+    this.avgScore(id);
   }
 
   loadAgence(id: number) {
@@ -48,6 +53,7 @@ export class AgenceDetailComponent implements OnInit {
   }
 
   back() {
-    this.router.navigate(['/agence']);
+    this.router.navigate(['/agences']);
   }
+
 }
