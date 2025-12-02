@@ -16,7 +16,7 @@ import {FormsModule} from '@angular/forms';
 export class AgenceComponent implements OnInit {
 
   agences: Agence[] = [];
-  newAgence: Agence = { agenceCity: '', agenceLocation: '' };
+  newAgence: Agence = { agenceMatriculate:'', agenceCity: '', agenceLocation: '' };
   editMode = false;
   selectedId: number | null = null;
   loading = false;
@@ -74,7 +74,7 @@ export class AgenceComponent implements OnInit {
   resetForm() {
     this.editMode = false;
     this.selectedId = null;
-    this.newAgence = { agenceCity: '', agenceLocation: '' };
+    this.newAgence = { agenceMatriculate:'', agenceCity: '', agenceLocation: '' };
   }
 
   viewDetail(id: number) {

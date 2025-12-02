@@ -1,0 +1,21 @@
+.not-found{
+  margin-top: auto;
+  margin-bottom: auto;
+  text-align: center;
+  height: 100vh;
+
+  h2{
+    color: red;
+  }
+
+  button {
+    padding: 12px;
+    background: #710f90;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+}

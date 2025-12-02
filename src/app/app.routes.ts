@@ -10,12 +10,15 @@ import {AuthGuard} from './guard/auth.guard';
 import {LoginComponent} from './login-component/login-component';
 import {AuthLayoutComponent} from './auth-layout-component/auth-layout-component';
 import {MainLayoutComponent} from './main-layout-component/main-layout-component';
+import {FeedbackComponent} from './feedback-component/feedback-component';
+import {NotFoundComponent} from './not-found-component/not-found-component';
 
 export const routes: Routes = [
 
   {
     path: '',
     component: MainLayoutComponent,
+    canActivate: [AuthGuard],
     children: [
       { path: 'agences', component: AgenceComponent },
       { path: 'agence/:id', component: AgenceDetailComponent },
@@ -24,6 +27,7 @@ export const routes: Routes = [
       { path: 'staff/:id', component: StaffDetailComponent },
       { path: 'staff-by-agence', component: StaffByagenceComponent },
       { path: 'questions', component: QuestionComponent },
+      { path: 'feedbacks', component: FeedbackComponent },
     ]
   },
   {
@@ -34,10 +38,9 @@ export const routes: Routes = [
     ]
   },
   {
-    path: 'dashboard',
-    component: StaffComponent,
-    canActivate: [AuthGuard]
-  }
+    path: 'dashboard', component: StaffComponent },
 
+  { path: 'not-found', component: NotFoundComponent },
+  { path: '**', redirectTo: 'not-found' }
 
 ];

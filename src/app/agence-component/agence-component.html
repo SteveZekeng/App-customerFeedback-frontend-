@@ -3,6 +3,7 @@
   <h2>Gestion des Agences</h2>
 
   <form (ngSubmit)="submit()" class="agence-form">
+    <input type="text" [(ngModel)]="newAgence.agenceMatriculate" name="agenceMatriculate" placeholder="Matricule de l'agence" required>
     <input type="text" [(ngModel)]="newAgence.agenceCity" name="agenceCity" placeholder="Ville de l'agence" required>
     <input type="text" [(ngModel)]="newAgence.agenceLocation" name="agenceLocation" placeholder="Localisation" required>
 
@@ -24,6 +25,7 @@
       <thead>
       <tr>
         <th>ID</th>
+        <th>Matricule</th>
         <th>Ville</th>
         <th>Localisation</th>
         <th>Actions</th>
@@ -33,6 +35,7 @@
         @for (ag of agences; track ag.id) {
           <tr>
             <td>{{ ag.id }}</td>
+            <td>{{ ag.agenceMatriculate }}</td>
             <td>{{ ag.agenceCity }}</td>
             <td>{{ ag.agenceLocation }}</td>
             <td>

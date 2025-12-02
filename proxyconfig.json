@@ -1,0 +1,32 @@
+{
+  "/customFeedback/staff/*": {
+    "target": "http://localhost:8083",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/customFeedback/agence/*": {
+    "target": "http://localhost:8083",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/customFeedback/auth/*": {
+    "target": "http://localhost:8083",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/customFeedback/feedback/*": {
+    "target": "http://localhost:8083",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/customFeedback/question/*": {
+    "target": "http://localhost:8083",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  }
+}
