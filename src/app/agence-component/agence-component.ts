@@ -29,6 +29,7 @@ export class AgenceComponent implements OnInit {
   }
 
   loadAgences() {
+    this.loading = true;
     this.agenceService.getAllAgences().subscribe({
       next: data => { this.agences = data; this.loading = false; },
       error: () => { this.errorMsg = 'Erreur lors du chargement.'; this.loading = false; }
@@ -36,7 +37,12 @@ export class AgenceComponent implements OnInit {
   }
 
   submit() {
-    if (!this.newAgence.agenceCity || !this.newAgence.agenceLocation) return;
+    const { agenceMatriculate, agenceCity, agenceLocation } = this.newAgence;
+
+    if (!agenceMatriculate || !agenceCity || !agenceLocation) {
+      alert("Veuillez remplir tous les champs.");
+      return;
+    }
 
     if (this.editMode && this.selectedId !== null) {
       this.agenceService.updateAgence(this.selectedId, this.newAgence).subscribe({

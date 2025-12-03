@@ -63,9 +63,11 @@
             <td>{{ s.agenceId }}</td>
 
             <td>
-              <button (click)="edit(s)">Modifier</button>
-              <button (click)="delete(s.id!)">Supprimer</button>
-              <button (click)="viewDetail(s.id!)">Détails</button>
+              <div class="action-buttons">
+              <button (click)="edit(s)"><span class="material-icons">edit</span>Modifier</button>
+              <button (click)="delete(s.id!)"><span class="material-icons">delete</span>Supprimer</button>
+              <button (click)="viewDetail(s.id!)"><span class="material-icons">visibility</span>Détails</button>
+              </div>
             </td>
           </tr>
         }

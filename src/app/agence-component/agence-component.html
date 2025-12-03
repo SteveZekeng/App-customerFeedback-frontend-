@@ -39,9 +39,11 @@
             <td>{{ ag.agenceCity }}</td>
             <td>{{ ag.agenceLocation }}</td>
             <td>
-              <button (click)="edit(ag)">Modifier</button>
-              <button (click)="delete(ag.id!)">Supprimer</button>
-              <button (click)="viewDetail(ag.id!)">Détails</button>
+              <div class="action-buttons">
+                <button (click)="edit(ag)"><span class="material-icons">edit</span>Modifier</button>
+                <button (click)="delete(ag.id!)"><span class="material-icons">delete</span>Supprimer</button>
+                <button (click)="viewDetail(ag.id!)"><span class="material-icons">visibility</span>Détails</button>
+              </div>
             </td>
           </tr>
         }

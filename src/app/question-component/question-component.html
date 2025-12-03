@@ -58,6 +58,7 @@
       <th>Question</th>
       <th>Type</th>
       <th>Propositions</th>
+      <th>Actions</th>
     </tr>
     </thead>
 
@@ -81,10 +82,11 @@
             }
           </td>
           <td>
-            <button (click)="editQuestion(q)">Modifier</button>
-            <button (click)="deleteQuestion(q.id!)">Supprimer</button>
+            <div class="action-buttons">
+            <button (click)="editQuestion(q)"><span class="material-icons">edit</span>Modifier</button>
+            <button (click)="deleteQuestion(q.id!)"><span class="material-icons">delete</span>Supprimer</button>
+            </div>
           </td>
-
 
         </tr>
       }

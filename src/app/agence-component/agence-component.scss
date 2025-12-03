@@ -1,5 +1,5 @@
 .container {
-  width: 50%;
+  width: 50vw;
   margin: auto;
   padding: 50px;
 
@@ -7,6 +7,33 @@
     text-align: center;
     margin-bottom: 20px;
   }
+}
+
+.action-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.action-buttons button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 12px;
+  background: #710f90;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.action-buttons button:hover {
+  background: #5a0c6f;
+}
+
+.material-icons {
+  font-size: 18px;
 }
 
 form {
@@ -39,6 +66,7 @@ button {
   color: white;
   font-size: 16px;
   cursor: pointer;
+  transition: 0.2s;
 
   &:hover {
     background: #710f90;

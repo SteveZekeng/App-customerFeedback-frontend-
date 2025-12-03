@@ -17,7 +17,7 @@ export class LoginComponent {
   creds = { username: '', password: '' };
   errorMsg = '';
 
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   login() {
     this.errorMsg = '';
@@ -28,8 +28,8 @@ export class LoginComponent {
       return;
     }
 
-    this.auth.login(this.creds).subscribe({
-      next: () => this.router.navigate(['/staff']),
+    this.authService.login(this.creds).subscribe({
+      next: () => this.router.navigate(['/']),
       error: () => this.errorMsg = 'Identifiants incorrects'
     });
   }
