@@ -1,18 +1,8 @@
 <div class="detail-container">
 
-  @if (loading) {
-    <p>...</p>
-  }
+  <button (click)="back()"> <span> << </span>Retour</button>
 
-  @else if (errorMessage) {
-    <div class="error-box">
-      <p>{{ errorMessage }}</p>
-      <button (click)="back()">Retour</button>
-    </div>
-  }
-
-  @else if (staff) {
-    <h2>Détails du Staff</h2>
+  <h2>Détails du staff</h2>
 
     <div class="card">
       <p><strong>ID :</strong> {{ staff.id }}</p>
@@ -20,10 +10,9 @@
       <p><strong>Téléphone :</strong> {{ staff.staffPhone }}</p>
       <p><strong>Email :</strong> {{ staff.staffEmail }}</p>
       <p><strong>Matricule :</strong> {{ staff.matricule }}</p>
-      <p><strong>ID Agence :</strong> {{ staff.agenceId }}</p>
+      <p><strong>ID Agence :</strong> {{ staff.agence_id }}</p>
+      <p><strong>Scoring :</strong> {{ averageScore }}</p>
     </div>
 
-    <button (click)="back()">Retour</button>
-  }
 
 </div>

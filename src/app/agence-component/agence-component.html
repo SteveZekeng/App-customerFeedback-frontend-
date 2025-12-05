@@ -21,7 +21,7 @@
   }
 
   @if (!loading && agences.length > 0) {
-    <table>
+    <table class="table">
       <thead>
       <tr>
         <th>ID</th>
@@ -40,16 +40,19 @@
             <td>{{ ag.agenceLocation }}</td>
             <td>
               <div class="action-buttons">
-                <button (click)="edit(ag)"><span class="material-icons">edit</span>Modifier</button>
-                <button (click)="delete(ag.id!)"><span class="material-icons">delete</span>Supprimer</button>
-                <button (click)="viewDetail(ag.id!)"><span class="material-icons">visibility</span>Détails</button>
+                <button><span (click)="edit(ag)" class="material-icons">edit</span></button>
+                <button><span (click)="delete(ag.id!)" class="material-icons">delete</span></button>
+                <button><span (click)="viewDetail(ag.id!)" class="material-icons">visibility</span></button>
               </div>
             </td>
           </tr>
         }
       </tbody>
-    </table>
+    </table><br>
+
+    <button class="btn" (click)="order()">Classification des Agences</button>
   }
+
 
   @if (!loading && agences.length === 0) {
     <p>Aucune agence enregistrée.</p>

@@ -2,17 +2,13 @@
   width: 200px;
   height: 100vh;
   background: white;
-  color: #710f90;
   padding-top: 20px;
   box-shadow: 2px 0 5px rgba(0,0,0,0.1);
   position: fixed;
   top: 60px;
   transition: 0.3s ease;
 
-  &:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
-  }
+
 }
 .sidebar.collapsed {
   width: 50px;
@@ -31,7 +27,8 @@ li {
   transition: 0.3s;
 }
 li:hover {
-  background: rgba(255,255,255,0.15);
+  background: #710f90;
+  color: black;
 }
 .text {
   transition: opacity 0.3s;
@@ -44,7 +41,7 @@ li:hover {
   position: absolute;
   top: 10px;
   right: -15px;
-  background: #C210FA;
+  background: white;
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -52,4 +49,12 @@ li:hover {
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  color: black;
+
+  &:hover {
+    background: #710f90;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+  }
+
 }

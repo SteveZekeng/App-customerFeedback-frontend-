@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AgenceService } from '../service/agence.service';
 import { Agence } from '../modele/agence.model';
-import {DecimalPipe} from '@angular/common';
+import {AsyncPipe, DecimalPipe} from '@angular/common';
 import {Observable} from 'rxjs';
 
 @Component({
@@ -10,9 +10,7 @@ import {Observable} from 'rxjs';
   standalone: true,
   templateUrl: './agence-detail-component.html',
   styleUrls: ['./agence-detail-component.scss'],
-  imports: [
-    DecimalPipe
-  ]
+  imports: []
 })
 export class AgenceDetailComponent implements OnInit {
 
@@ -20,36 +18,45 @@ export class AgenceDetailComponent implements OnInit {
   loading = true;
   errorMsg = '';
   id!: number;
-  average!: Observable<number>;
+  average!: number;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private agenceService: AgenceService
+    private agenceService: AgenceService,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.loadAgence(id);
-    this.avgScore(id);
+    this.id = Number(this.route.snapshot.paramMap.get('id'));
+    console.log(this.id);
+    this.loadAgence(this.id);
+    this.avgScore(this.id);
   }
 
   loadAgence(id: number) {
-    this.loading = true;
-
     this.agenceService.getAgenceById(id).subscribe({
       next: data => {
+        console.log("success",data);
         this.agence = data;
         this.loading = false;
+        this.cdr.detectChanges();
       },
-      error: () => {
+      error: (error) => {
+        console.log("error",error);
         this.errorMsg = "Agence introuvable.";
         this.loading = false;
       }
     });
   }
-  avgScore(agenceId: number){
-    this.average = this.agenceService.getAverageScore(this.id);
+  avgScore(id: number) {
+     this.agenceService.getAverageScore(id).subscribe({
+      next: res =>{
+        this.average = res;
+        console.log(res);
+        this.cdr.detectChanges();
+      }
+    })
   }
 
   back() {

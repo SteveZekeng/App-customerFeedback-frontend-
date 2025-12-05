@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import { Agence } from '../modele/agence.model';
 import { AgenceService } from '../service/agence.service';
 import { Router } from '@angular/router';
 import {FormsModule} from '@angular/forms';
+import {finalize} from 'rxjs';
 
 @Component({
   selector: 'app-agence-component',
@@ -22,7 +23,9 @@ export class AgenceComponent implements OnInit {
   loading = false;
   errorMsg = '';
 
-  constructor(private agenceService: AgenceService, private router: Router) {}
+  constructor(private agenceService: AgenceService,
+              private router: Router,
+              private cdr : ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.loadAgences();
@@ -30,9 +33,14 @@ export class AgenceComponent implements OnInit {
 
   loadAgences() {
     this.loading = true;
-    this.agenceService.getAllAgences().subscribe({
-      next: data => { this.agences = data; this.loading = false; },
-      error: () => { this.errorMsg = 'Erreur lors du chargement.'; this.loading = false; }
+    this.agenceService.getAllAgences()
+      .pipe(finalize(() => {
+        this.loading = false;
+        this.cdr.detectChanges();
+      }))
+      .subscribe({
+        next: data => { this.agences = data; },
+        error: () => { this.errorMsg = 'Erreur lors du chargement.'; }
     });
   }
 
@@ -45,22 +53,17 @@ export class AgenceComponent implements OnInit {
     }
 
     if (this.editMode && this.selectedId !== null) {
-      this.agenceService.updateAgence(this.selectedId, this.newAgence).subscribe({
-        next: () => {
-          alert('Agence mise à jour');
+      this.agenceService.updateAgence(this.selectedId, this.newAgence).subscribe((response) => {
         this.resetForm();
         this.loadAgences();
-        },
-        error: () => alert('Erreur lors de la mise à jour')
+        console.log('Agence mise à jour', response);
       });
     } else {
-      this.agenceService.createAgence(this.newAgence).subscribe({
-        next: () => {
-          alert('Agence créée avec succès !');
-        this.resetForm();
+      this.agenceService.createAgence(this.newAgence).subscribe((response) => {
         this.loadAgences();
-        },
-        error: () => alert('Erreur lors de la création.')
+        this.resetForm();
+          console.log('Agence créée avec succès !', response);
+
       });
     }
   }
@@ -73,7 +76,9 @@ export class AgenceComponent implements OnInit {
 
   delete(id: number) {
     if (confirm('Êtes-vous sûr ?')) {
-      this.agenceService.deleteAgence(id).subscribe(() => this.loadAgences());
+      this.agenceService.deleteAgence(id).subscribe(() =>
+        this.loadAgences())
+      console.log('Agence supprimée avec succes')
     }
   }
 
@@ -85,5 +90,9 @@ export class AgenceComponent implements OnInit {
 
   viewDetail(id: number) {
     this.router.navigate(['/agence', id]);
+  }
+
+  order(){
+    this.router.navigate(['/agences-desc']);
   }
 }

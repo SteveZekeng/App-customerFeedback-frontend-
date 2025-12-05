@@ -7,6 +7,7 @@
     <thead>
     <tr>
       <th>ID</th>
+      <th>Matricule</th>
       <th>Ville</th>
       <th>Localisation</th>
       <th>Score</th>
@@ -17,9 +18,10 @@
       @for (ag of agences; track ag.id){
         <tr>
           <td>{{ ag.id }}</td>
+          <td>{{ ag.agenceMatriculate }}</td>
           <td>{{ ag.agenceCity }}</td>
           <td>{{ ag.agenceLocation }}</td>
-          <td>{{ ag.average | number:'1.1-2' }}</td>
+          <td>{{ ag.average }}</td>
         </tr>
       }
     </tbody>

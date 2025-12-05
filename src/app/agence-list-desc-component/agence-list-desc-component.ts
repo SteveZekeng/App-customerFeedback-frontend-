@@ -1,13 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {Agence} from '../modele/agence.model';
 import {AgenceService} from '../service/agence.service';
-import {DecimalPipe} from '@angular/common';
 
 @Component({
   selector: 'app-agence-list-desc-component',
-  imports: [
-    DecimalPipe
-  ],
+  imports: [],
   templateUrl: './agence-list-desc-component.html',
   styleUrl: './agence-list-desc-component.scss',
 })
@@ -15,7 +12,8 @@ export class AgenceListDescComponent implements OnInit {
 
   agences: Agence[] = [];
 
-  constructor(private agenceService: AgenceService) {}
+  constructor(private agenceService: AgenceService,
+              private cdr: ChangeDetectorRef,) {}
 
   ngOnInit(): void {
     this.loadAgencesDesc();
@@ -23,7 +21,9 @@ export class AgenceListDescComponent implements OnInit {
 
   loadAgencesDesc() {
     this.agenceService.getListAgenceOrderDesc().subscribe(data => {
+      console.log("success",data);
       this.agences = data;
+      this.cdr.detectChanges();
     });
   }
 

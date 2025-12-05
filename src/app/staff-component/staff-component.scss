@@ -72,20 +72,21 @@ button {
   }
 }
 
-
-table {
+.table {
   width: 100%;
+  margin-top: 30px;
   border-collapse: collapse;
-  margin-top: 15px;
-}
+  background: #fff;
 
-table th, table td {
-  border: 1px solid #ccc;
-  padding: 8px;
-}
+  th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+  }
 
-table th {
-  background: #f2f2f2;
+  th {
+    color: black;
+    background: #f2f2f2;
+  }
 }
 
 

@@ -2,6 +2,9 @@
   width: 50vw;
   margin: auto;
   padding: 50px;
+  align-items: center;
+
+
 
   h2 {
     text-align: center;
@@ -41,7 +44,7 @@ form {
   flex-direction: column;
   gap: 16px;
 
-  input {
+  input{
     padding: 12px;
     border-radius: 10px;
     border: 1.5px solid #ddd;
@@ -55,7 +58,7 @@ form {
 
 
   }
-  }
+}
 
 
 button {
@@ -66,24 +69,26 @@ button {
   color: white;
   font-size: 16px;
   cursor: pointer;
-  transition: 0.2s;
 
   &:hover {
     background: #710f90;
   }
 }
 
-table {
+
+.table {
   width: 100%;
+  margin-top: 30px;
   border-collapse: collapse;
-  margin-top: 15px;
-}
+  background: #fff;
 
-table th, table td {
-  border: 1px solid #ccc;
-  padding: 8px;
-}
+  th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+  }
 
-table th {
-  background: #f3f3f3;
+  th {
+    color: black;
+    background: #f2f2f2;
+  }
 }

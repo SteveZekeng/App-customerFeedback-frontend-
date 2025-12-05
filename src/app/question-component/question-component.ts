@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import { Question } from '../modele/question.model';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { QuestionService } from '../service/question.service';
 import { InputType } from '../enum/input-type.enum';
 import { Router } from '@angular/router';
+import {finalize} from 'rxjs';
 
 @Component({
   selector: 'app-question-component',
@@ -31,16 +32,22 @@ export class QuestionComponent implements OnInit {
   loading = false;
   errorMsg = '';
 
-  constructor(private questionService: QuestionService, private router: Router) {}
+  constructor(private questionService: QuestionService,
+              private cdr : ChangeDetectorRef) {}
 
   ngOnInit() {
     this.loadQuestions();
   }
 
   loadQuestions() {
-    this.questionService.getAllQuestion().subscribe({
-      next: data => { this.questions = data; this.loading = false; },
-      error: () => { this.errorMsg = 'Erreur lors du chargement.'; this.loading = false; }
+    this.questionService.getAllQuestion()
+      .pipe(finalize(() => {
+        this.loading = false;
+        this.cdr.detectChanges()
+      }))
+        .subscribe({
+      next: data => { this.questions = data; },
+      error: () => { this.errorMsg = 'Erreur lors du chargement.';}
     });
   }
 
@@ -118,11 +125,6 @@ export class QuestionComponent implements OnInit {
       },
       error: () => alert('Erreur lors de la suppression')
     });
-  }
-
-  viewQuestion(id: number) {
-    // navigate vers une page détail si tu as une route, sinon tu peux ouvrir un modal
-    this.router.navigate(['/questions', id]);
   }
 
   resetForm() {

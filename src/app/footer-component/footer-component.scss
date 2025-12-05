@@ -1,17 +1,13 @@
 .footer {
   width: 100%;
   height: 100px;
-  background: #710f90;
-  color: white;
+  background:#cccccc;
+  color: black;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: fixed;
   bottom: 0;
   left: 0;
 
-  &:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
-  }
+
 }

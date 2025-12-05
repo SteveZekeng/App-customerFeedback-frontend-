@@ -1,8 +1,8 @@
 .navbar {
   width: 100%;
   height: 60px;
-  background: #710f90;
-  color: white;
+  background:#cccccc;
+  color: black;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -13,10 +13,7 @@
   top: 0;
   z-index: 100;
 
-  &:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
-  }
+
 
 }
 .left {
@@ -24,7 +21,7 @@
   align-items: center;
 }
 .logo {
-  height: 85px;
+  height: 100px;
   width: auto;
   object-fit: contain;
   display: block;
@@ -36,7 +33,7 @@
 }
 .account-btn {
   background: white;
-  color: #710f90;
+  color: black;
   border: none;
   padding: 6px 10px;
   min-width: 80px;
@@ -46,5 +43,5 @@
   transition: 0.3s;
 }
 .account-btn:hover {
-  background: #e3e3e3;
+  background: #710f90;
 }

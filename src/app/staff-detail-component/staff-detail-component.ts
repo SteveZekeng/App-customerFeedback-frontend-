@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {Staff} from '../modele/staff.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {StaffService} from '../service/staff.service';
+import {FeedbackService} from '../service/feedback.service';
 
 @Component({
   selector: 'app-staff-detail-component',
@@ -12,42 +13,52 @@ import {StaffService} from '../service/staff.service';
 })
 export class StaffDetailComponent implements OnInit {
 
-  staff!: Staff | null;
+  staff!: Staff;
   loading = true;
-  errorMessage: string | null = null;
+  errorMsg = '';
+  id!: number;
+  averageScore!: number;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private staffService: StaffService
+    private staffService: StaffService,
+    private cdr: ChangeDetectorRef,
+    private feedbackService: FeedbackService,
   ) {}
 
   ngOnInit(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-
-    if (!id) {
-      this.errorMessage = "ID invalide.";
-      this.loading = false;
-      return;
-    }
-
-    this.loadStaff(id);
+    this.id = Number(this.route.snapshot.paramMap.get('id'));
+    console.log(this.id);
+    this.loadStaff(this.id);
+    this.getAverageScore(this.id);
   }
 
   loadStaff(id: number) {
     this.loading = true;
-
     this.staffService.getStaffById(id).subscribe({
       next: (data) => {
+        console.log("success",data);
         this.staff = data;
         this.loading = false;
+        this.cdr.detectChanges();
       },
-      error: () => {
-        this.errorMessage = "Aucun staff trouvé pour cet ID.";
-        this.staff = null;
+      error: (error) => {
+        console.log("error",error);
+        this.errorMsg = "Staff introuvable.";
         this.loading = false;
       }
     });
+  }
+
+  getAverageScore(id: number) {
+    this.feedbackService.getScoringStaff(id).subscribe({
+      next: res =>{
+        this.averageScore = res;
+        console.log(res);
+        this.cdr.detectChanges();
+      }
+    })
   }
 
   back() {

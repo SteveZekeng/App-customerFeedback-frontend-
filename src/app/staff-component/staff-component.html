@@ -2,14 +2,14 @@
 
   <h2>Gestion du Personnel (Staff)</h2>
 
-  <div class="filter-box">
-    <label>Rechercher par agence :</label>
-    <input type="number"
-           placeholder="ID agence"
-           [(ngModel)]="selectedAgenceId"
-           (change)="loadStaffByAgence()">
-  </div>
-  <hr>
+<!--  <div class="filter-box">-->
+<!--    <label>Rechercher par agence :</label>-->
+<!--    <input type="number"-->
+<!--           placeholder="ID agence"-->
+<!--           [(ngModel)]="selectedAgenceId"-->
+<!--           (change)="loadStaffByAgence()">-->
+<!--  </div>-->
+<!--  <hr>-->
 
   <form [formGroup]="staffForm" (ngSubmit)="submit()">
     <input type="text" formControlName="staffName" placeholder="Nom du staff">
@@ -20,7 +20,7 @@
 
     <input type="text" formControlName="matricule" placeholder="Matricule">
 
-    <input type="number" formControlName="agenceId" placeholder="ID de l'agence">
+    <input type="number" formControlName="agence_id" placeholder="ID de l'agence">
 
     <button type="submit">
       {{ editMode ? 'Modifier' : 'Ajouter' }}
@@ -39,7 +39,7 @@
   }
 
   @if (!loading && staffList.length > 0) {
-    <table>
+    <table class="table">
       <thead>
       <tr>
         <th>ID</th>
@@ -47,7 +47,7 @@
         <th>Téléphone</th>
         <th>Email</th>
         <th>Matricule</th>
-        <th>Agence</th>
+        <th>AgenceID</th>
         <th>Actions</th>
       </tr>
       </thead>
@@ -60,13 +60,13 @@
             <td>{{ s.staffPhone }}</td>
             <td>{{ s.staffEmail }}</td>
             <td>{{ s.matricule }}</td>
-            <td>{{ s.agenceId }}</td>
+            <td>{{ s.agence_id }}</td>
 
             <td>
               <div class="action-buttons">
-              <button (click)="edit(s)"><span class="material-icons">edit</span>Modifier</button>
-              <button (click)="delete(s.id!)"><span class="material-icons">delete</span>Supprimer</button>
-              <button (click)="viewDetail(s.id!)"><span class="material-icons">visibility</span>Détails</button>
+              <button><span (click)="edit(s)" class="material-icons">edit</span></button>
+              <button><span (click)="delete(s.id!)" class="material-icons">delete</span></button>
+              <button><span (click)="viewDetail(s.id!)" class="material-icons">visibility</span></button>
               </div>
             </td>
           </tr>

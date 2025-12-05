@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {Staff} from '../modele/staff.model';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {StaffService} from '../service/staff.service';
 import {Router} from '@angular/router';
+import {finalize} from 'rxjs';
 
 @Component({
   selector: 'app-staff-component',
@@ -27,7 +28,8 @@ export class StaffComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private staffService: StaffService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -44,29 +46,33 @@ export class StaffComponent implements OnInit {
 
   loadStaffs() {
     this.loading = true;
-
-    this.staffService.getAllStaffs().subscribe({
-      next: data => { this.staffList = data; this.loading = false; },
-      error: () => { this.errorMsg = 'Erreur lors du chargement.'; this.loading = false; }
+    this.staffService.getAllStaffs()
+      .pipe(finalize(() => {
+        this.loading = false;
+        this.cdr.detectChanges()
+      }))
+      .subscribe({
+      next: data => { this.staffList = data; },
+      error: () => { this.errorMsg = 'Erreur lors du chargement.'; }
     });
   }
 
-  loadStaffByAgence() {
-    if (!this.selectedAgenceId) return;
-
-    this.loading = true;
-    this.staffService.getStaffByAgence(this.selectedAgenceId).subscribe({
-      next: data => {
-        this.staffList = data;
-        this.loading = false;
-        if (data.length === 0) this.errorMsg = 'Aucun staff trouvé.';
-      },
-      error: () => {
-        this.errorMsg = 'Agence introuvable.';
-        this.loading = false;
-      }
-    });
-  }
+  // loadStaffByAgence() {
+  //   if (!this.selectedAgenceId) return;
+  //
+  //   this.loading = true;
+  //   this.staffService.getStaffByAgence(this.selectedAgenceId).subscribe({
+  //     next: data => {
+  //       this.staffList = data;
+  //       this.loading = false;
+  //       if (data.length === 0) this.errorMsg = 'Aucun staff trouvé.';
+  //     },
+  //     error: () => {
+  //       this.errorMsg = 'Agence introuvable.';
+  //       this.loading = false;
+  //     }
+  //   });
+  // }
 
   submit() {
     if (this.staffForm.invalid) return;
@@ -89,7 +95,6 @@ export class StaffComponent implements OnInit {
           this.resetForm();
           this.loadStaffs();
         },
-        error: () => alert('Erreur lors de la création.')
       });
     }
   }
@@ -101,15 +106,11 @@ export class StaffComponent implements OnInit {
   }
 
   delete(id: number) {
-    if (confirm("Voulez-vous vraiment supprimer ce staff ?")) return;
-    this.staffService.deleteStaff(id).subscribe({
-      next: () => {
-        alert('Staff supprimée');
-        this.loadStaffs();
-      },
-      error: () => alert('Erreur lors de la suppression')
-    });
-
+    if (confirm('Êtes-vous sûr ?')) {
+      this.staffService.deleteStaff(id).subscribe(() =>
+        this.loadStaffs())
+      console.log('Agence supprimée avec succes')
+    }
   }
 
   resetForm() {
