@@ -29,7 +29,7 @@ export class LoginComponent {
     }
 
     this.authService.login(this.creds).subscribe({
-      next: () => this.router.navigate(['/']),
+      next: () => this.router.navigate(['/feedbacks']),
       error: () => this.errorMsg = 'Identifiants incorrects'
     });
   }

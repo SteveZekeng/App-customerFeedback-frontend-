@@ -1,7 +1,6 @@
 export enum InputType {
-  TEXT = 'text',
-  NUMBER = 'number',
-  RADIO_BUTTON = 'radio',
-  CHECKBOX = 'checkbox',
-  SELECT_OPT = 'selectOption',
+  TEXT = 'TEXT',
+  NUMBER = 'NUMBER',
+  RADIO_BUTTON = 'RADIO_BUTTON',
+  SELECT_OPT = 'SELECT_OPT',
 }

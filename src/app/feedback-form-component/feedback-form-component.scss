@@ -1,0 +1,106 @@
+
+.container {
+  max-width: 550px;
+  margin: 50px auto;
+  padding: 30px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 15px 25px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+  h2 {
+    text-align: center;
+    color: black;
+    margin-bottom: 50px;
+    font-size: 20px;
+  }
+}
+
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+}
+
+input[type="text"],
+input[type="number"],
+textarea {
+  padding: 15px;
+  border: 1.5px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: 0.3s;
+
+}
+
+input:focus,
+textarea:focus {
+  border-color: #4a148c;
+  box-shadow: 0 0 8px rgba(74, 20, 140, 0.2);
+  outline: none;
+}
+
+
+.question {
+  padding: 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+
+
+  p {
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    font-size: 14px;
+
+    input[type="radio"] {
+      accent-color: #4a148c;
+    }
+  }
+
+}
+
+textarea {
+  max-height: 100px;
+  resize: vertical;
+  height: 100px;
+}
+
+button[type="submit"] {
+  padding: 12px 20px;
+  background-color: #710f90;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  align-self: flex-start;
+
+  &:hover {
+    background-color: #6a1b9a;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 20px;
+  }
+}
+.logo {
+  height: 80px;
+  width: auto;
+  object-fit: contain;
+  display: flex;
+  align-items: center;
+}
+

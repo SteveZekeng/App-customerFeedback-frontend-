@@ -1,4 +1,5 @@
 import {Question} from './question.model';
+import {Responses} from './responses.model';
 
 export interface Feedback {
   id?: number;
@@ -6,7 +7,7 @@ export interface Feedback {
   customerPhone: string;
   comment: string;
   staff_id?: number;
-  responses?: Response[];
+  responses?: Responses[];
   questions?: Question[];
 
 }
