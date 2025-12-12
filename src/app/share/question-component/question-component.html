@@ -1,0 +1,100 @@
+<div class="container">
+
+  <h2>Gestion des questions</h2>
+
+  <form (ngSubmit)="submit()" class="form">
+
+    <label>Intitulé de la question</label>
+    <input type="text" [(ngModel)]="question.labelQuestion" name="labelQuestion" required/>
+
+    <label>Type d'entrée</label>
+    <select [(ngModel)]="question.inputType" name="inputType" (change)="onInputTypeChange()">
+      <option [ngValue]="this.InputType.NUMBER">Nombre</option>
+      <option [ngValue]="this.InputType.SELECT_OPT">Select Option</option>
+      <option [ngValue]="this.InputType.RADIO_BUTTON">Radio Button</option>
+      <option [ngValue]="this.InputType.TEXT">Texte</option>
+    </select>
+
+    @if (question.inputType === this.InputType.SELECT_OPT || question.inputType === this.InputType.RADIO_BUTTON) {
+
+      <div class="propositions">
+
+        <h3>Propositions</h3>
+
+        @for (p of question.propositions; track $index) {
+          <div class="prop-item">
+            <input type="text" [(ngModel)]="p.label" name="label{{$index}}" placeholder="Libellé">
+            <input type="number" [(ngModel)]="p.score" name="score{{$index}}" placeholder="Score">
+
+            @if (question.inputType === this.InputType.SELECT_OPT && question.propositions!.length > 2) {
+              <button type="button" class="remove" (click)="removeProposition($index)">X</button>
+            }
+          </div>
+        }
+
+        @if (question.inputType === this.InputType.SELECT_OPT && question.propositions!.length < 4) {
+          <button type="button" class="add" (click)="addProposition()">+ Ajouter</button>
+        }
+
+      </div>
+    }
+
+    <button class="submit" type="submit">Ajouter</button>
+
+  </form>
+
+  <hr>
+
+  @if (!loading && errorMsg) {
+    <p class="error">{{ errorMsg }}</p>
+  }
+
+  @if (!loading && questions.length > 0) {
+  <table class="table">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Question</th>
+      <th>Type</th>
+      <th>Propositions</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+
+    <tbody>
+      @for (q of questions; track q.id) {
+        <tr>
+          <td>{{ q.id }}</td>
+          <td>{{ q.labelQuestion }}</td>
+          <td>{{ q.inputType }}</td>
+
+          <td>
+            @if (q.propositions?.length) {
+              <ul>
+                @for (p of q.propositions; track $index) {
+                  <li>{{ p.label }}; score : {{ p.score }}</li>
+                }
+              </ul>
+            }
+            @else {
+              <i>Aucune proposition</i>
+            }
+          </td>
+          <td>
+            <div class="action-buttons">
+            <button><span (click)="editQuestion(q)" class="material-icons">edit</span></button>
+            <button><span (click)="deleteQuestion(q.id!)" class="material-icons">delete</span></button>
+            </div>
+          </td>
+
+        </tr>
+      }
+    </tbody>
+  </table>
+  }
+
+  @if (!loading && questions.length === 0) {
+    <p>Aucun question trouvée.</p>
+  }
+
+</div>

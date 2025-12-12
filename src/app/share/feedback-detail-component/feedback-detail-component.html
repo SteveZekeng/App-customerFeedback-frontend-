@@ -1,0 +1,33 @@
+<div class="detail-container">
+
+  <h2>Détails du Feedback</h2>
+
+  <div class="card">
+    <p><strong>ID :</strong> {{ feedback.id }}</p>
+    <p><strong>Nom du client :</strong> {{ feedback.customerName }}</p>
+    <p><strong>Téléphone du client:</strong> {{ feedback.customerPhone }}</p>
+    <p><strong>Commentaire :</strong> {{ feedback.comment }}</p>
+    <p><strong>ID Staff :</strong> {{ feedback.staff_id?.staffName }}</p>
+    <p><strong>Score du feedback :</strong> {{ averageScore }}</p><br>
+    <strong>Reponses :</strong>
+    @for (res of feedback.responses; track res.id) {
+      <ol>
+        <li>
+          <b>questionID :</b> {{ res.question_id }}
+        </li>
+        <li>
+          <b>proposition selectionnée :</b> {{ res.selectedLabel }}
+        </li>
+        <li>
+          <b>Score :</b> {{ res.value }}
+        </li>
+      </ol><hr>
+    }
+
+
+  </div>
+
+  <button (click)="back()"> <span> << </span>Retour</button>
+
+</div>
+

@@ -1,0 +1,35 @@
+<div class="container">
+
+  <h2>Agences Triées par Score (DESC)</h2>
+
+  @if (agences.length > 0){
+  <table>
+    <thead>
+    <tr>
+<!--      <th>ID</th>-->
+      <th>Matricule</th>
+      <th>Ville</th>
+      <th>Localisation</th>
+      <th>Score</th>
+    </tr>
+    </thead>
+
+    <tbody>
+      @for (ag of agences; track ag.id){
+        <tr>
+<!--          <td>{{ ag.id }}</td>-->
+          <td>{{ ag.agenceMatriculate }}</td>
+          <td>{{ ag.agenceCity }}</td>
+          <td>{{ ag.agenceLocation }}</td>
+          <td>{{ ag.average }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+  }
+
+  @if (agences.length === 0){
+    <p>Aucune agence trouvée.</p>
+  }
+
+</div>

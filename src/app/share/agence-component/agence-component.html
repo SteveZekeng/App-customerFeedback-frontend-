@@ -1,0 +1,61 @@
+<div class="container">
+
+  <h2>Gestion des Agences</h2>
+
+  <form (ngSubmit)="submit()" class="agence-form">
+    <input type="text" [(ngModel)]="newAgence.agenceMatriculate" name="agenceMatriculate" placeholder="Matricule de l'agence" required>
+    <input type="text" [(ngModel)]="newAgence.agenceCity" name="agenceCity" placeholder="Ville de l'agence" required>
+    <input type="text" [(ngModel)]="newAgence.agenceLocation" name="agenceLocation" placeholder="Localisation" required>
+
+    <button type="submit">{{ editMode ? 'Modifier' : 'Ajouter' }}</button>
+
+    @if (editMode) {
+      <button type="button" (click)="resetForm()">Annuler</button>
+    }
+  </form>
+
+  <hr>
+
+  @if (!loading && errorMsg) {
+    <p class="error">{{ errorMsg }}</p>
+  }
+
+  @if (!loading && agences.length > 0) {
+    <table class="table">
+      <thead>
+      <tr>
+<!--        <th>ID</th>-->
+        <th>Matricule</th>
+        <th>Ville</th>
+        <th>Localisation</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+        @for (ag of agences; track ag.id) {
+          <tr>
+<!--            <td>{{ ag.id }}</td>-->
+            <td>{{ ag.agenceMatriculate }}</td>
+            <td>{{ ag.agenceCity }}</td>
+            <td>{{ ag.agenceLocation }}</td>
+            <td>
+              <div class="action-buttons">
+                <button><span (click)="edit(ag)" class="material-icons">edit</span></button>
+                <button><span (click)="delete(ag.id!)" class="material-icons">delete</span></button>
+                <button><span (click)="viewDetail(ag.id!)" class="material-icons">visibility</span></button>
+              </div>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table><br>
+
+    <button class="btn" (click)="order()">Classification des Agences</button>
+  }
+
+
+  @if (!loading && agences.length === 0) {
+    <p>Aucune agence enregistrée.</p>
+  }
+
+</div>

@@ -1,19 +1,19 @@
 import { Routes } from '@angular/router';
-import {AgenceComponent} from './agence-component/agence-component';
-import {AgenceDetailComponent} from './agence-detail-component/agence-detail-component';
-import {AgenceListDescComponent} from './agence-list-desc-component/agence-list-desc-component';
-import {StaffComponent} from './staff-component/staff-component';
-import {StaffDetailComponent} from './staff-detail-component/staff-detail-component';
-import {QuestionComponent} from './question-component/question-component';
-import {AuthGuard} from './guard/auth.guard';
-import {LoginComponent} from './login-component/login-component';
-import {AuthLayoutComponent} from './auth-layout-component/auth-layout-component';
-import {MainLayoutComponent} from './main-layout-component/main-layout-component';
-import {FeedbackComponent} from './feedback-component/feedback-component';
-import {NotFoundComponent} from './not-found-component/not-found-component';
-import {FeedbackDetailComponent} from './feedback-detail-component/feedback-detail-component';
-import {FeedbackFormComponent} from './feedback-form-component/feedback-form-component';
-import {ValidedFormComponent} from './valided-form-component/valided-form-component';
+import {AgenceComponent} from './share/agence-component/agence-component';
+import {AgenceDetailComponent} from './share/agence-detail-component/agence-detail-component';
+import {AgenceListDescComponent} from './share/agence-list-desc-component/agence-list-desc-component';
+import {StaffComponent} from './share/staff-component/staff-component';
+import {StaffDetailComponent} from './share/staff-detail-component/staff-detail-component';
+import {QuestionComponent} from './share/question-component/question-component';
+import {AuthGuard} from './core/guard/auth.guard';
+import {LoginComponent} from './share/login-component/login-component';
+import {AuthLayoutComponent} from './module/auth-layout-component/auth-layout-component';
+import {MainLayoutComponent} from './module/main-layout-component/main-layout-component';
+import {FeedbackComponent} from './share/feedback-component/feedback-component';
+import {NotFoundComponent} from './share/not-found-component/not-found-component';
+import {FeedbackDetailComponent} from './share/feedback-detail-component/feedback-detail-component';
+import {FeedbackFormComponent} from './share/feedback-form-component/feedback-form-component';
+import {ValidedFormComponent} from './share/valided-form-component/valided-form-component';
 
 export const routes: Routes = [
 
@@ -29,7 +29,7 @@ export const routes: Routes = [
       { path: 'staff/:id', component: StaffDetailComponent },
       { path: 'questions', component: QuestionComponent },
       { path: 'feedbacks', component: FeedbackComponent },
-      { path: 'feedback/:id', component: FeedbackDetailComponent },
+      { path: 'feedback/:id', component: FeedbackDetailComponent }
     ]
   },
   {
@@ -40,9 +40,9 @@ export const routes: Routes = [
       { path: '', redirectTo: 'auth', pathMatch: 'full' }
     ]
   },
-  { path: 'form/:matricule', component: FeedbackFormComponent },
+
   { path: 'validedForm', component: ValidedFormComponent },
-  { path: 'dashboard', component: StaffComponent },
+  { path: 'form/:matricule', component: FeedbackFormComponent },
 
   { path: 'not-found', component: NotFoundComponent },
   { path: '**', redirectTo: 'not-found' },

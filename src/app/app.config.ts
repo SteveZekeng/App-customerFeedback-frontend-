@@ -12,7 +12,7 @@ import {
   provideHttpClient,
   withInterceptorsFromDi
 } from '@angular/common/http';
-import {AuthInterceptor} from './intercepteur/auth.interceptor';
+import {AuthInterceptor} from './core/intercepteur/auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
