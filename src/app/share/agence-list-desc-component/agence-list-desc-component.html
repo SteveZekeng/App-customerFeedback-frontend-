@@ -21,7 +21,9 @@
           <td>{{ ag.agenceMatriculate }}</td>
           <td>{{ ag.agenceCity }}</td>
           <td>{{ ag.agenceLocation }}</td>
-          <td>{{ ag.average }}</td>
+          <td>
+            <strong>{{ ag.average | number:'1.1-2': 'fr-FR' }}/5</strong>
+          </td>
         </tr>
       }
     </tbody>
@@ -31,5 +33,7 @@
   @if (agences.length === 0){
     <p>Aucune agence trouvée.</p>
   }
+
+  <button (click)="back()"> <span> << </span>Retour</button>
 
 </div>

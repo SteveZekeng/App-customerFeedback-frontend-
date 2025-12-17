@@ -23,6 +23,7 @@ export class QuestionComponent implements OnInit {
   question: Question = {
     labelQuestion: '',
     inputType: InputType.TEXT,
+    orderIndex: 1,
     propositions: []
   };
 
@@ -87,6 +88,7 @@ export class QuestionComponent implements OnInit {
       this.questionService.updateQuestion(this.selectedId, this.question).subscribe({
         next: () => {
           alert('Question mise à jour');
+          console.log(this.selectedId, this.question);
           this.resetForm();
           this.loadQuestions();
         },
@@ -95,12 +97,16 @@ export class QuestionComponent implements OnInit {
     } else {
 
       this.questionService.createQuestion(this.question).subscribe({
-        next: () => {
+        next: (response) => {
           alert('Question créée avec succès !');
+          console.log("success",response);
           this.resetForm();
           this.loadQuestions();
         },
-        error: () => alert('Erreur lors de la création.')
+        error: (err) => {
+          console.error(err);
+          alert(this.errorMsg = 'Erreur lors de la création');
+        }
       });
     }
   }
@@ -112,6 +118,7 @@ export class QuestionComponent implements OnInit {
       id: q.id,
       labelQuestion: q.labelQuestion,
       inputType: q.inputType,
+      orderIndex: q.orderIndex,
       propositions: q.propositions ? q.propositions.map(p => ({...p})) : []
     };
   }
@@ -133,6 +140,7 @@ export class QuestionComponent implements OnInit {
     this.question = {
       labelQuestion: '',
       inputType: InputType.TEXT,
+      orderIndex: 1,
       propositions: []
     };
   }

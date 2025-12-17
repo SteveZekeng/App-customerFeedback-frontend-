@@ -1,33 +1,40 @@
 <div class="container">
-  <h2>Liste des Réponses</h2>
+  <h2>Gestion de Réponses</h2>
 
   @if (!loading && errorMsg) {
     <p class="error">{{ errorMsg }}</p>
   }
 
   @if (!loading && responses.length > 0) {
-  <table>
-    <thead>
-    <tr>
-      <th>ID</th>
-      <th>Question ID</th>
-      <th>Label choisi</th>
-      <th>Valeur</th>
-      <th>Feedback ID</th>
-    </tr>
-    </thead>
+    <table class="table">
+      <thead>
+      <tr>
+  <!--      <th>ID</th>-->
+        <th>Question ID</th>
+        <th>Label choisi</th>
+        <th>Valeur</th>
+        <th>Feedback ID</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
 
-    <tbody>
-      @for (r of responses; track r.id){
-    <tr>
-      <td>{{ r.id }}</td>
-      <td>{{ r.question_id }}</td>
-      <td>{{ r.selectedLabel }}</td>
-      <td>{{ r.value }}</td>
-      <td>{{ r.feedback_id }}</td>
-    </tr>
-      }
-    </tbody>
-  </table>
+      <tbody>
+        @for (r of responses; track r.id){
+      <tr>
+  <!--      <td>{{ r.id }}</td>-->
+        <td>{{ r.question_id }}</td>
+        <td>{{ r.selectedLabel }}</td>
+        <td>{{ r.value }}</td>
+        <td>{{ r.feedback_id }}</td>
+        <td>
+          <div class="action-buttons">
+            <button><span (click)="delete(r.id!)" class="material-icons">delete</span></button>
+  <!--          <button><span (click)="viewDetail(r.id!)" class="material-icons">visibility</span></button>-->
+          </div>
+        </td>
+      </tr>
+        }
+      </tbody>
+    </table>
   }
 </div>

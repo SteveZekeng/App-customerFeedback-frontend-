@@ -8,7 +8,7 @@ export interface Feedback {
   customerPhone: string;
   comment: string;
   staff_id?: Staff;
-  responses?: Responses[];
-  questions?: Question[];
+  responses: Responses[];
+  questions: Question[];
 
 }

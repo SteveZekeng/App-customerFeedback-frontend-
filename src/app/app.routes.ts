@@ -14,6 +14,7 @@ import {NotFoundComponent} from './share/not-found-component/not-found-component
 import {FeedbackDetailComponent} from './share/feedback-detail-component/feedback-detail-component';
 import {FeedbackFormComponent} from './share/feedback-form-component/feedback-form-component';
 import {ValidedFormComponent} from './share/valided-form-component/valided-form-component';
+import {ResponsesComponent} from './share/responses-component/responses-component';
 
 export const routes: Routes = [
 
@@ -29,7 +30,8 @@ export const routes: Routes = [
       { path: 'staff/:id', component: StaffDetailComponent },
       { path: 'questions', component: QuestionComponent },
       { path: 'feedbacks', component: FeedbackComponent },
-      { path: 'feedback/:id', component: FeedbackDetailComponent }
+      { path: 'feedback/:id', component: FeedbackDetailComponent },
+      { path: 'responses', component: ResponsesComponent },
     ]
   },
   {
@@ -47,5 +49,5 @@ export const routes: Routes = [
   { path: 'not-found', component: NotFoundComponent },
   { path: '**', redirectTo: 'not-found' },
 
-
+  { path: 'validedForm', component: ValidedFormComponent },
 ];

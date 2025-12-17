@@ -4,10 +4,13 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {StaffService} from '../../core/service/staff.service';
 import {FeedbackService} from '../../core/service/feedback.service';
 import {Feedback} from '../modele/feedback.model';
+import {DecimalPipe} from '@angular/common';
 
 @Component({
   selector: 'app-feedback-detail-component',
-  imports: [],
+  imports: [
+    DecimalPipe
+  ],
   templateUrl: './feedback-detail-component.html',
   styleUrl: './feedback-detail-component.scss',
 })

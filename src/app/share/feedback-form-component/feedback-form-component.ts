@@ -9,6 +9,7 @@ import {Question} from '../modele/question.model';
 import {finalize} from 'rxjs';
 import {Responses} from '../modele/responses.model';
 import {ResponseService} from '../../core/service/responses.service';
+import {Staff} from '../modele/staff.model';
 
 @Component({
   selector: 'app-feedback-form-component',
@@ -25,9 +26,12 @@ export class FeedbackFormComponent implements OnInit {
 
   feedback!: Feedback;
   questions: Question[] = [];
-  responses: Responses[] = [];
+  // responses: Responses[] = [];
   errorMsg = '';
   matricule!:  string;
+  selectedId: number | null = null;
+  isSubmitting = false;
+
 
   constructor(private feedbackService: FeedbackService,
               private router: Router,
@@ -39,28 +43,57 @@ export class FeedbackFormComponent implements OnInit {
     this.loadForm(this.matricule);
   }
 
-  submit(){
-    this.feedbackService.createFeedback(this.feedback).subscribe({
-      next: () => {
-        console.log('Staff crée avec succes ');
-        this.valid();
-      },
-    });
-  }
-
-  valid() {
-    this.router.navigate(['/validedForm']);
-  }
-
   loadForm(matricule: string) {
     this.feedbackService.getFeedbackForm(matricule)
       .pipe(finalize(() => {
       this.cdr.detectChanges();
         console.log("succes", this.feedback.questions, this.feedback.responses)
     })).subscribe({
-      next: data => {this.feedback = data[0];},
-      error: () => {this.errorMsg = "Erreur lors du chargement.";}
+      next: data => {
+        this.feedback = data[0];
+
+        this.feedback.responses = this.feedback.questions!.map(q => ({
+          question_id: q.id!,
+          value: 0,
+          selectedLabel: '',
+          feedback_id: 0
+        }));
+      }
     });
+  }
+
+  submit(form: any) {
+    if (!form.valid || this.isSubmitting) {
+      return;
+    }
+
+    this.isSubmitting = true;
+    // this.errorMsg = "Veuillez remplir tous les champs obligatoires.";
+
+
+    this.feedbackService.createFeedback(this.feedback).subscribe({
+      next: () => {
+        console.log('Feedback créé avec succès');
+        this.resetForm();
+        this.router.navigate(['/validedForm']);
+      },
+      error: (err) => {
+        console.log(err)
+        this.errorMsg = "Erreur lors de l’envoi.";
+        this.isSubmitting = false;
+      }
+    });
+  }
+
+  resetForm(){
+    this.selectedId = null;
+    this.feedback = {
+      customerName: '',
+      customerPhone: '',
+      comment: '',
+      responses: [],
+      questions: []
+    }
   }
 
   protected readonly InputType = InputType;

@@ -12,8 +12,8 @@ export class AgenceService {
 
   constructor(private http: HttpClient) { }
 
-  createAgence(agence: Agence): Observable<string> {
-    return this.http.post<string>(`${this.baseUrl}`, agence);
+  createAgence(agence: Agence): Observable<Agence> {
+    return this.http.post<Agence>(`${this.baseUrl}`, agence);
   }
 
   getAllAgences(): Observable<Agence[]> {

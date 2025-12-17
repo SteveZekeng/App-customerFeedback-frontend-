@@ -13,8 +13,8 @@ export class FeedbackService {
   constructor(private http: HttpClient) {
   }
 
-  createFeedback(fd: Feedback): Observable<string>{
-    return this.http.post<string>(`${this.baseUrl}/addFeedback`, fd);
+  createFeedback(fd: Feedback): Observable<Feedback>{
+    return this.http.post<Feedback>(`${this.baseUrl}/addFeedback`, fd);
   }
 
   getAllFeedback():Observable<Feedback[]>{

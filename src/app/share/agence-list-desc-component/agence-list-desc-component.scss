@@ -16,5 +16,22 @@ th, td {
 }
 
 th {
-  background-color: #f1f1f1;
+  background-color: #692c8a;
+}
+button {
+  margin-top: 14px;
+  padding: 8px 10px;
+  font-size: 12px;
+  font-weight: 300;
+  cursor: pointer;
+  transition: 0.2s;
+  align-items: center;
+  gap: 5px;
+  border-radius: 8px;
+
+  &:hover {
+    background: #710f90;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+  }
 }

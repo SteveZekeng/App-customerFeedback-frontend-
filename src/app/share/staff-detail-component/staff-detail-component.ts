@@ -3,11 +3,14 @@ import {Staff} from '../modele/staff.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {StaffService} from '../../core/service/staff.service';
 import {FeedbackService} from '../../core/service/feedback.service';
+import {DecimalPipe} from '@angular/common';
 
 @Component({
   selector: 'app-staff-detail-component',
   standalone: true,
-  imports: [],
+  imports: [
+    DecimalPipe
+  ],
   templateUrl: './staff-detail-component.html',
   styleUrls: ['./staff-detail-component.scss'],
 })

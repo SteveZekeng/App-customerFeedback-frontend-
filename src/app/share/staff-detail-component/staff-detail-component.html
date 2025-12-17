@@ -9,7 +9,7 @@
       <p><strong>Email :</strong> {{ staff.staffEmail }}</p>
       <p><strong>Matricule :</strong> {{ staff.matricule }}</p>
       <p><strong>ID Agence :</strong> {{ staff.agence_id.agenceLocation}}</p>
-      <p><strong>Scoring :</strong> {{ averageScore }}</p>
+      <p><strong>Scoring :</strong> {{ averageScore | number:'1.1-2': 'fr-FR'}}/5</p>
     </div>
 
     <button (click)="back()"> <span> << </span>Retour</button>

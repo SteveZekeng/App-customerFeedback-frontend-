@@ -38,7 +38,7 @@ export class StaffComponent implements OnInit {
       staffPhone: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(9)]],
       staffEmail: ['', [Validators.required, Validators.email]],
       matricule: ['', Validators.required],
-      agence: ['', Validators.required]
+      agence_id: ['', Validators.required]
     });
 
     this.loadStaffs();
@@ -57,27 +57,20 @@ export class StaffComponent implements OnInit {
     });
   }
 
-  // loadStaffByAgence() {
-  //   if (!this.selectedAgenceId) return;
-  //
-  //   this.loading = true;
-  //   this.staffService.getStaffByAgence(this.selectedAgenceId).subscribe({
-  //     next: data => {
-  //       this.staffList = data;
-  //       this.loading = false;
-  //       if (data.length === 0) this.errorMsg = 'Aucun staff trouvé.';
-  //     },
-  //     error: () => {
-  //       this.errorMsg = 'Agence introuvable.';
-  //       this.loading = false;
-  //     }
-  //   });
-  // }
-
   submit() {
     if (this.staffForm.invalid) return;
 
-    const staff: Staff = this.staffForm.value;
+    const formValue = this.staffForm.value;
+
+    const staff: any = {
+      staffName: formValue.staffName,
+      staffPhone: formValue.staffPhone,
+      staffEmail: formValue.staffEmail,
+      matricule: formValue.matricule,
+      agence_id: {
+        id: formValue.agence_id
+      }
+    };
 
     if (this.editMode && this.selectedId) {
       this.staffService.updateStaff(this.selectedId, staff).subscribe({
@@ -90,11 +83,16 @@ export class StaffComponent implements OnInit {
       });
     } else {
       this.staffService.createStaff(staff).subscribe({
-        next: () => {
+        next: (response) => {
           alert('Staff crée avec succès !');
+          console.log("success",response );
           this.resetForm();
           this.loadStaffs();
         },
+        error: (err) => {
+          console.error(err);
+          alert(this.errorMsg = 'Erreur lors de la création');
+        }
       });
     }
   }

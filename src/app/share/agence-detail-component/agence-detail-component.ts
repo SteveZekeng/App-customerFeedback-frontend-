@@ -10,7 +10,9 @@ import {Observable} from 'rxjs';
   standalone: true,
   templateUrl: './agence-detail-component.html',
   styleUrls: ['./agence-detail-component.scss'],
-  imports: []
+  imports: [
+    DecimalPipe
+  ]
 })
 export class AgenceDetailComponent implements OnInit {
 

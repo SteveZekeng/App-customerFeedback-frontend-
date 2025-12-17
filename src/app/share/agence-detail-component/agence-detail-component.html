@@ -7,7 +7,7 @@
       <p><strong>Matricule :</strong> {{ agence.agenceMatriculate }}</p>
       <p><strong>Ville :</strong> {{ agence.agenceCity }}</p>
       <p><strong>Localisation :</strong> {{ agence.agenceLocation }}</p>
-      <p><strong>Scoring :</strong> {{ average }}</p>
+      <p><strong>Scoring :</strong> {{ average | number:'1.1-2': 'fr-FR' }}/5</p>
     </div>
 
     <button (click)="back()"> <span> << </span>Retour</button>

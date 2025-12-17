@@ -12,8 +12,8 @@ export class StaffService {
 
   constructor(private http: HttpClient) {}
 
-  createStaff(staff: Staff): Observable<string> {
-    return this.http.post<string>(this.baseUrl, staff);
+  createStaff(staff: Staff): Observable<Staff> {
+    return this.http.post<Staff>(this.baseUrl, staff);
   }
 
   getAllStaffs(): Observable<Staff[]> {

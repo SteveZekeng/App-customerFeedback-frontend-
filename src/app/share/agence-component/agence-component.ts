@@ -53,17 +53,26 @@ export class AgenceComponent implements OnInit {
     }
 
     if (this.editMode && this.selectedId !== null) {
-      this.agenceService.updateAgence(this.selectedId, this.newAgence).subscribe((response) => {
+      this.agenceService.updateAgence(this.selectedId, this.newAgence).subscribe({
+        next: () => {
+          alert('Agence mise à jour');
         this.resetForm();
         this.loadAgences();
-        console.log('Agence mise à jour', response);
+        },
+        error: () => alert('Erreur lors de la mise à jour')
       });
     } else {
-      this.agenceService.createAgence(this.newAgence).subscribe((response) => {
-        this.loadAgences();
-        this.resetForm();
+      this.agenceService.createAgence(this.newAgence).subscribe({
+        next: (response) => {
+          alert('Agence crée avec succès !');
           console.log('Agence créée avec succès !', response);
-
+          this.loadAgences();
+          this.resetForm();
+        },
+        error: (err) => {
+          console.error(err);
+          alert(this.errorMsg = 'Erreur lors de la création');
+        }
       });
     }
   }

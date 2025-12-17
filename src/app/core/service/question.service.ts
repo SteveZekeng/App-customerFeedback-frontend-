@@ -10,8 +10,8 @@ export class QuestionService {
 
   constructor(private http: HttpClient) {}
 
-  createQuestion(question: Question): Observable<any> {
-    return this.http.post(this.baseUrl, question);
+  createQuestion(question: Question): Observable<Question> {
+    return this.http.post<Question>(this.baseUrl, question);
   }
 
   getAllQuestion(): Observable<Question[]> {

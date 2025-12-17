@@ -6,6 +6,8 @@
 
     <label>Intitulé de la question</label>
     <input type="text" [(ngModel)]="question.labelQuestion" name="labelQuestion" required/>
+    <label>Ordre d'affichage</label>
+    <input type="number" [(ngModel)]="question.orderIndex" name="orderIndex" min="1" required/>
 
     <label>Type d'entrée</label>
     <select [(ngModel)]="question.inputType" name="inputType" (change)="onInputTypeChange()">
@@ -39,7 +41,9 @@
       </div>
     }
 
-    <button class="submit" type="submit">Ajouter</button>
+    <button class="submit" type="submit">
+      {{ editMode ? 'Modifier' : 'Ajouter'}}
+    </button>
 
   </form>
 

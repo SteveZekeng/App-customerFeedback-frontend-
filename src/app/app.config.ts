@@ -13,6 +13,10 @@ import {
   withInterceptorsFromDi
 } from '@angular/common/http';
 import {AuthInterceptor} from './core/intercepteur/auth.interceptor';
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+
+registerLocaleData(localeFr);
 
 export const appConfig: ApplicationConfig = {
   providers: [

@@ -2,70 +2,75 @@
   <div class="head">
     <img src="../../../assets/images.png" alt="CCA logo" class="logo">
     <h2> Customer_Feedback Form CCA Bank </h2>
-  </div> <hr> <br>
+  </div> <br>
 
   <div>
     @if (feedback){
 
-      <form (ngSubmit)="submit()">
+      <form (ngSubmit)="submit(form)" #form="ngForm">
 
-        <input type="text" name="customerName" [(ngModel)]="feedback.customerName"
+        <input required type="text" name="customerName" [(ngModel)]="feedback.customerName"
                placeholder="Nom du client">
 
-        <input type="text" name="customerPhone" [(ngModel)]="feedback.customerPhone"
+        <input required type="text" name="customerPhone" [(ngModel)]="feedback.customerPhone"
                placeholder="Téléphone">
 
         <input type="hidden" [(ngModel)]="feedback.staff_id" name="staff_id">
 
-        @for (q of feedback.questions; track q.id){
-        <div class="question">
-          <ol>
+        <ol class="question">
+          @for (q of feedback.questions; track q.id; let i = $index){
+
+
             <li>
-              <label>{{ q.labelQuestion }}</label>
-            </li>
+                <label>{{ q.labelQuestion }}</label>
 
-            @if (q.inputType === InputType.SELECT_OPT){
-              @for (res of feedback.responses; track res.id){
-            <select [(ngModel)]="res.selectedLabel" name="q{{q.id}}">
-              @for (p of q.propositions; track $index){
-              <option>
-                {{ p.label }}
-              </option>
-              }
-            </select>
-              }
-            }
+                @if (q.inputType === InputType.SELECT_OPT) {
 
-            @if (q.inputType === this.InputType.RADIO_BUTTON){
-            <div>
-              @for (res of feedback.responses; track res.id){
-                @for (p of q.propositions; track $index){
-                  <input type="radio" name="q{{q.id}}" [value]="p.label"
-                         [(ngModel)]="res.selectedLabel">
-                  <label> {{ p.label }} </label>
+                  <select name="q{{q.id}}" [(ngModel)]="feedback.responses[i].selectedLabel" required>
+                    <option value=""> ... Sélectionner ... </option>
+                    @for (p of q.propositions; track $index){
+                      <option [value]="p.label">
+                        {{ p.label }}
+                      </option>
+                    }
+                    </select>
+
                 }
-              }
-            </div>
+
+                @if (q.inputType === this.InputType.RADIO_BUTTON){
+                  <div>
+                    @for (p of q.propositions; track $index){
+                      <input type="radio" name="q{{q.id}}" [value]="p.label"
+                        [(ngModel)]="feedback.responses[i].selectedLabel">
+                      <label>{{ p.label }}</label>
+                    }
+
+                  </div>
+                }
+                @if (q.inputType === InputType.NUMBER){
+                  <input type="number" name="q{{q.id}}" [(ngModel)]="feedback.responses[i].value"
+                    required>
+                }
+
+              </li>
+
           }
-            @if (q.inputType === InputType.NUMBER){
-              @for (res of feedback.responses; track res.id){
-                <input type="number" [(ngModel)]="res.value" name="q{{q.id}}">
-              }
-            }
-
         </ol>
-
-        </div>
-        }
-
         <textarea name="comment"
                   [(ngModel)]="feedback.comment"
                   placeholder="Votre commentaire ici">
         </textarea>
 
-        <button type="submit">Envoyer</button>
+        <button type="submit" [disabled]="isSubmitting || !form.valid">Envoyer</button>
       </form>
     }
+
+    @if (errorMsg){
+    <div class="error">
+      {{ errorMsg }}
+    </div>
+    }
+
   </div>
 
 </div>

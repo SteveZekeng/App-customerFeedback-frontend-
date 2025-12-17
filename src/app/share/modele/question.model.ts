@@ -5,5 +5,6 @@ export interface Question {
   id?: number;
   labelQuestion: string;
   inputType: InputType;
+  orderIndex: number;
   propositions?: Proposition[];
 }

@@ -8,7 +8,7 @@
     <p><strong>Téléphone du client:</strong> {{ feedback.customerPhone }}</p>
     <p><strong>Commentaire :</strong> {{ feedback.comment }}</p>
     <p><strong>ID Staff :</strong> {{ feedback.staff_id?.staffName }}</p>
-    <p><strong>Score du feedback :</strong> {{ averageScore }}</p><br>
+    <p><strong>Score du feedback :</strong> {{ averageScore | number:'1.1-2': 'fr-FR'}}/5 </p><br>
     <strong>Reponses :</strong>
     @for (res of feedback.responses; track res.id) {
       <ol>
@@ -19,7 +19,7 @@
           <b>proposition selectionnée :</b> {{ res.selectedLabel }}
         </li>
         <li>
-          <b>Score :</b> {{ res.value }}
+          <b>Score ou valeur correspondante:</b> {{ res.value }}
         </li>
       </ol><hr>
     }
