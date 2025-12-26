@@ -7,4 +7,5 @@ export interface Staff {
   staffEmail: string;
   matricule: string;
   agence_id: Agence;
+  average?: number;
 }

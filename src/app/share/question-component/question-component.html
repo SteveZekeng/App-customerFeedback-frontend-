@@ -7,7 +7,7 @@
     <label>Intitulé de la question</label>
     <input type="text" [(ngModel)]="question.labelQuestion" name="labelQuestion" required/>
     <label>Ordre d'affichage</label>
-    <input type="number" [(ngModel)]="question.orderIndex" name="orderIndex" min="1" required/>
+    <input type="number" [(ngModel)]="question.indexOrder" name="indexOrder" min="1" required/>
 
     <label>Type d'entrée</label>
     <select [(ngModel)]="question.inputType" name="inputType" (change)="onInputTypeChange()">
@@ -57,7 +57,7 @@
   <table class="table">
     <thead>
     <tr>
-      <th>ID</th>
+<!--      <th>ID</th>-->
       <th>Question</th>
       <th>Type</th>
       <th>Propositions</th>
@@ -68,7 +68,7 @@
     <tbody>
       @for (q of questions; track q.id) {
         <tr>
-          <td>{{ q.id }}</td>
+<!--          <td>{{ q.id }}</td>-->
           <td>{{ q.labelQuestion }}</td>
           <td>{{ q.inputType }}</td>
 

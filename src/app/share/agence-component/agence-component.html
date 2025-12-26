@@ -51,6 +51,36 @@
     </table><br>
 
     <button class="btn" (click)="order()">Classification des Agences</button>
+
+    <div class="pagination-controls">
+      <span>Page {{ currentPage + 1 }} of {{ totalPages }}</span>&nbsp;
+      <button class="pagination-btn" (click)="goToPage(0)" [disabled]="currentPage === 0">First</button>&nbsp;
+      <button class="pagination-btn" (click)="previousPage()" [disabled]="currentPage === 0">Previous</button>&nbsp;
+      @for (page of getVisiblePages(); track page){
+        <button class="pagination-btn page-number" [class.active]="(page) === currentPage" (click)="goToPage(page)"> {{ page + 1 }} </button>&nbsp;
+      }
+      <button class="pagination-btn" (click)="nextPage()" [disabled]="currentPage === totalPages - 1">Next</button>&nbsp;
+      <button class="pagination-btn" (click)="goToPage(totalPages - 1)" [disabled]="currentPage === totalPages - 1">Last</button>
+    </div>
+
+    <div class="page-size-selector">
+      <label for="pageSize">Items/page:</label>
+      <select
+        id="pageSize"
+        (change)="changePageSize($any($event.target).value)"
+        class="page-size-select">
+        @for (size of pageSizeOptions; track size){
+          <option [value]="size" [selected]="size === itemsByPage"> {{size}} </option>
+        }
+      </select>
+
+      <label for="pageNo">Page:</label>
+      <select id="pageNo" (change)="goToPage($any($event.target).value)" class="page-size-select">
+        @for (page of getPageNumbers(); track page){
+          <option [value]="page" [selected]="page === currentPage">{{ page + 1 }}</option>
+        }
+      </select>
+    </div>
   }
 
 

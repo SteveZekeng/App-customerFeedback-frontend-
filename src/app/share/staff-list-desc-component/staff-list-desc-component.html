@@ -1,0 +1,43 @@
+<div class="container">
+
+  <h2>Staffs Triées par Score</h2>
+
+  @if (staffs.length > 0){
+    <table>
+      <thead>
+      <tr>
+        <!--      <th>ID</th>-->
+        <th>Nom</th>
+        <th>Telephone</th>
+        <th>Email</th>
+        <th>Matricule</th>
+        <th>Agence</th>
+        <th>Score</th>
+      </tr>
+      </thead>
+
+      <tbody>
+        @for (st of staffs; track st.id){
+          <tr>
+            <!--          <td>{{ ag.id }}</td>-->
+            <td>{{ st.staffName }}</td>
+            <td>{{ st.staffPhone }}</td>
+            <td>{{ st.staffEmail }}</td>
+            <td>{{ st.matricule }}</td>
+            <td>{{ st.agence_id.agenceLocation }}</td>
+            <td>
+              <strong>{{ st.average | number:'1.1-2': 'fr-FR' }}/5</strong>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+
+  @if (staffs.length === 0){
+    <p>Aucun staff trouvé.</p>
+  }
+
+  <button (click)="back()"> <span> << </span>Retour</button>
+
+</div>

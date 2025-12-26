@@ -23,7 +23,7 @@ export class QuestionComponent implements OnInit {
   question: Question = {
     labelQuestion: '',
     inputType: InputType.TEXT,
-    orderIndex: 1,
+    indexOrder: 1,
     propositions: []
   };
 
@@ -118,20 +118,17 @@ export class QuestionComponent implements OnInit {
       id: q.id,
       labelQuestion: q.labelQuestion,
       inputType: q.inputType,
-      orderIndex: q.orderIndex,
+      indexOrder: q.indexOrder,
       propositions: q.propositions ? q.propositions.map(p => ({...p})) : []
     };
   }
 
   deleteQuestion(id: number) {
-    if (!confirm('Voulez-vous vraiment supprimer cette question ?')) return;
-    this.questionService.deleteQuestion(id).subscribe({
-      next: () => {
-        alert('Question supprimée');
-        this.loadQuestions();
-      },
-      error: () => alert('Erreur lors de la suppression')
-    });
+    if (confirm('Voulez-vous vraiment supprimer cette question ?')){
+        this.questionService.deleteQuestion(id).subscribe(() =>
+          this.loadQuestions())
+        console.log('Question supprimée avec succes')
+    }
   }
 
   resetForm() {
@@ -140,7 +137,7 @@ export class QuestionComponent implements OnInit {
     this.question = {
       labelQuestion: '',
       inputType: InputType.TEXT,
-      orderIndex: 1,
+      indexOrder: 1,
       propositions: []
     };
   }

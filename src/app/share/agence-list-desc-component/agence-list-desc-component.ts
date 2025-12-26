@@ -3,6 +3,8 @@ import {Agence} from '../modele/agence.model';
 import {AgenceService} from '../../core/service/agence.service';
 import {Router} from '@angular/router';
 import {DecimalPipe} from '@angular/common';
+import {StaffService} from '../../core/service/staff.service';
+import {Staff} from '../modele/staff.model';
 
 @Component({
   selector: 'app-agence-list-desc-component',
@@ -31,10 +33,14 @@ export class AgenceListDescComponent implements OnInit {
       this.cdr.detectChanges();
     });
   }
+
   back() {
     this.router.navigate(['/agences']);
   }
 
+  viewDetail(agenceLocation: string) {
+      this.router.navigate(['/staffByAgence', agenceLocation]);
+  }
 
 }
 

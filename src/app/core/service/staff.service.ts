@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Staff } from '../../share/modele/staff.model';
+import {Page} from '../../share/modele/page.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +17,10 @@ export class StaffService {
     return this.http.post<Staff>(this.baseUrl, staff);
   }
 
-  getAllStaffs(): Observable<Staff[]> {
-    return this.http.get<Staff[]>(this.baseUrl);
+  getAllStaffs(page: number, size: number): Observable<Page<Staff>> {
+    return this.http.get<Page<Staff>>(
+      `${this.baseUrl}?page=${page}&size=${size}`
+    );
   }
 
   getStaffById(id: number): Observable<Staff> {
@@ -34,6 +37,20 @@ export class StaffService {
 
   getStaffByAgence(agenceId: number): Observable<Staff[]> {
     return this.http.get<Staff[]>(`${this.baseUrl}/staffAgence/${agenceId}`);
+  }
+
+  getListStaffOrderDesc(): Observable<Staff[]> {
+    return this.http.get<Staff[]>(`${this.baseUrl}/listStaffOrderDesc`);
+  }
+
+  // getListStaffByAgenceLocation(agenceLocation: string):Observable<Staff[]>{
+  //   return this.http.get<Staff[]>(`${this.baseUrl}/listStaffByAgence/${agenceLocation}`);
+  // }
+
+  getListStaffByAgenceLocation(agenceLocation: string): Observable<Staff[]> {
+    return this.http.get<Staff[]>(`${this.baseUrl}/listStaffByAgence`,
+      { params: { agenceLocation } }
+    );
   }
 
 }

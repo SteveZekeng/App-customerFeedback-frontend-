@@ -1,7 +1,5 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {Staff} from '../modele/staff.model';
 import {ActivatedRoute, Router} from '@angular/router';
-import {StaffService} from '../../core/service/staff.service';
 import {FeedbackService} from '../../core/service/feedback.service';
 import {Feedback} from '../modele/feedback.model';
 import {DecimalPipe} from '@angular/common';

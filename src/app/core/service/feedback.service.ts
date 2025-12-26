@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Feedback} from '../../share/modele/feedback.model';
 import {Observable} from 'rxjs';
+import {Page} from '../../share/modele/page.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +18,10 @@ export class FeedbackService {
     return this.http.post<Feedback>(`${this.baseUrl}/addFeedback`, fd);
   }
 
-  getAllFeedback():Observable<Feedback[]>{
-    return this.http.get<Feedback[]>(this.baseUrl);
+  getAllFeedback(page: number, size: number): Observable<Page<Feedback>> {
+    return this.http.get<Page<Feedback>>(
+      `${this.baseUrl}?page=${page}&size=${size}`
+    );
   }
 
   getFeedbackById(id:number): Observable<Feedback>{

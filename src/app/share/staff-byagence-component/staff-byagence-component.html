@@ -1,56 +1,46 @@
 <div class="container">
 
-  <h2>Liste des Staffs par Agence</h2>
+  <h2>Liste des staffs de cette agence</h2>
 
-  <div class="filters">
-    <label>Choisir une agence :</label>
-    <select [(ngModel)]="selectedAgenceId" (change)="loadStaffByAgence()">
-      <option value="">-- Sélectionner --</option>
-      @for (ag of agences; track ag.id){
-        <option>
-          {{ ag.agenceCity }} - {{ ag.agenceLocation }}
-        </option>
-      }
-    </select>
-  </div>
+  @if (!loading && errorMsg) {
+    <p class="error">{{ errorMsg }}</p>
+  }
 
-  <hr>
-
-
-  @if (!loading && staffList.length > 0){
-    <table>
+  @if (!loading && staffList.length > 0) {
+    <table class="table">
       <thead>
       <tr>
-        <th>ID</th>
+<!--        <th>ID</th>-->
         <th>Nom</th>
         <th>Téléphone</th>
         <th>Email</th>
         <th>Matricule</th>
-        <th>Actions</th>
+        <th>Agence</th>
+        <th>Score</th>
       </tr>
       </thead>
 
       <tbody>
-        @for (s of staffList; track s.id){
+        @for (s of staffList; track s.id) {
           <tr>
-            <td>{{ s.id }}</td>
+<!--            <td>{{ s.id }}</td>-->
             <td>{{ s.staffName }}</td>
             <td>{{ s.staffPhone }}</td>
             <td>{{ s.staffEmail }}</td>
             <td>{{ s.matricule }}</td>
-            <td>
-              <button (click)="viewDetail(s.id!)">Détails</button>
-            </td>
+            <td>{{ s.agence_id.agenceLocation }}</td>
+            <td> <strong>{{ s.average  | number:'1.1-2': 'fr-FR'}}/5</strong></td>
           </tr>
         }
       </tbody>
-    </table>
+    </table><br>
+
   }
 
-  @if (!loading && staffList.length === 0 && selectedAgenceId){
-    <p>
-      Aucun staff trouvé pour cette agence.
-    </p>
+  @if (!loading && staffList.length === 0) {
+    <p>Aucun staff disponible.</p>
   }
+
+  <button (click)="back()"> <span> << </span>Retour</button>
 
 </div>

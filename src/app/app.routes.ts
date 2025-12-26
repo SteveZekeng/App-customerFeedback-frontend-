@@ -15,6 +15,8 @@ import {FeedbackDetailComponent} from './share/feedback-detail-component/feedbac
 import {FeedbackFormComponent} from './share/feedback-form-component/feedback-form-component';
 import {ValidedFormComponent} from './share/valided-form-component/valided-form-component';
 import {ResponsesComponent} from './share/responses-component/responses-component';
+import {StaffListDescComponent} from './share/staff-list-desc-component/staff-list-desc-component';
+import {StaffByagenceComponent} from './share/staff-byagence-component/staff-byagence-component';
 
 export const routes: Routes = [
 
@@ -32,6 +34,8 @@ export const routes: Routes = [
       { path: 'feedbacks', component: FeedbackComponent },
       { path: 'feedback/:id', component: FeedbackDetailComponent },
       { path: 'responses', component: ResponsesComponent },
+      { path: 'staff-desc', component: StaffListDescComponent },
+      { path: 'staffByAgence/:agenceLocation', component: StaffByagenceComponent },
     ]
   },
   {

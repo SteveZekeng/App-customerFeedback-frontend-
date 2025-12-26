@@ -12,9 +12,11 @@
     <strong>Reponses :</strong>
     @for (res of feedback.responses; track res.id) {
       <ol>
+        @for (qr of feedback.questions; track qr.id){
         <li>
-          <b>questionID :</b> {{ res.question_id }}
+          <b>questionID :</b> {{ qr.labelQuestion }}
         </li>
+        }
         <li>
           <b>proposition selectionnée :</b> {{ res.selectedLabel }}
         </li>

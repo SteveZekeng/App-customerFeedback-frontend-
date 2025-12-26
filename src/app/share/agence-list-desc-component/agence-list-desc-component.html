@@ -1,6 +1,6 @@
 <div class="container">
 
-  <h2>Agences Triées par Score (DESC)</h2>
+  <h2>Agences Triées par Score</h2>
 
   @if (agences.length > 0){
   <table>
@@ -11,6 +11,7 @@
       <th>Ville</th>
       <th>Localisation</th>
       <th>Score</th>
+      <th>Actions</th>
     </tr>
     </thead>
 
@@ -23,6 +24,11 @@
           <td>{{ ag.agenceLocation }}</td>
           <td>
             <strong>{{ ag.average | number:'1.1-2': 'fr-FR' }}/5</strong>
+          </td>
+          <td>
+            <div class="action-buttons">
+              <button><span (click)="viewDetail(ag.agenceLocation!)" class="material-icons">visibility</span></button>
+            </div>
           </td>
         </tr>
       }

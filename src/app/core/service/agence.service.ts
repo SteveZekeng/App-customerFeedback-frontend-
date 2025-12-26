@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Agence } from '../../share/modele/agence.model';
+import {Page} from '../../share/modele/page.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +17,10 @@ export class AgenceService {
     return this.http.post<Agence>(`${this.baseUrl}`, agence);
   }
 
-  getAllAgences(): Observable<Agence[]> {
-    return this.http.get<Agence[]>(`${this.baseUrl}`);
+  getAllAgences(page: number, size: number): Observable<Page<Agence>> {
+    return this.http.get<Page<Agence>>(
+      `${this.baseUrl}?page=${page}&size=${size}`
+    );
   }
 
   getAgenceById(id: number): Observable<Agence> {

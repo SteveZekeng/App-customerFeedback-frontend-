@@ -1,61 +1,57 @@
-import {Component, OnInit} from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import {Agence} from '../modele/agence.model';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ReactiveFormsModule} from '@angular/forms';
 import {Staff} from '../modele/staff.model';
 import {StaffService} from '../../core/service/staff.service';
-import {AgenceService} from '../../core/service/agence.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {DecimalPipe} from '@angular/common';
+import {FeedbackService} from '../../core/service/feedback.service';
+
 
 @Component({
   selector: 'app-staff-byagence-component',
   standalone: true,
-  imports: [FormsModule],
+  imports: [DecimalPipe, ReactiveFormsModule],
   templateUrl: './staff-byagence-component.html',
   styleUrls: ['./staff-byagence-component.scss'],
 })
 export class StaffByagenceComponent implements OnInit {
 
-  agences: Agence[] = [];
-  selectedAgenceId: number | null = null;
-
   staffList: Staff[] = [];
-  loading = false;
+  loading = true;
+  errorMsg = '';
+  agenceLocation!: string;
 
   constructor(
     private staffService: StaffService,
-    private agenceService: AgenceService,
-    private router: Router
+    private route: ActivatedRoute,
+    private router: Router,
+    private cdr: ChangeDetectorRef,
+    private feedbackService: FeedbackService,
   ) {}
 
   ngOnInit(): void {
-    this.loadAgences();
+    this.agenceLocation = String(this.route.snapshot.paramMap.get('agenceLocation'));
+    this.loadStaff(this.agenceLocation);
   }
 
-  loadAgences() {
-    this.agenceService.getAllAgences().subscribe(data => {
-      this.agences = data;
-    });
-  }
-
-  loadStaffByAgence() {
-    if (!this.selectedAgenceId) return;
-
+  loadStaff(agenceLocation: string) {
     this.loading = true;
-    this.staffList = [];
-
-    this.staffService.getStaffByAgence(this.selectedAgenceId).subscribe({
+    this.staffService.getListStaffByAgenceLocation(agenceLocation).subscribe({
       next: (data) => {
+        console.log("success",data);
         this.staffList = data;
         this.loading = false;
+        this.cdr.detectChanges();
       },
-      error: () => {
-        this.staffList = [];
+      error: (error) => {
+        console.log("error",error);
+        this.errorMsg = "Staff introuvable.";
         this.loading = false;
       }
     });
   }
 
-  viewDetail(id: number) {
-    this.router.navigate(['/staff', id]);
+  back() {
+    this.router.navigate(['/agences-desc']);
   }
 }
